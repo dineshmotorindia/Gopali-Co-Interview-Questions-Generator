@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#030812">
+<meta name="mobile-web-app-capable" content="yes">
 
 <title>MotorIndia Interview Questions Generator</title>
 
@@ -12,8 +14,7 @@
   --accent-soft:#ff5260;
   --bg:#030812;
   --bg2:#071321;
-  --panel:rgba(7,19,34,.92);
-  --panel-light:rgba(12,29,48,.86);
+  --panel:rgba(7,19,34,.94);
   --line:rgba(255,255,255,.13);
   --text:#f7f9fc;
   --muted:#9eafc2;
@@ -26,16 +27,18 @@
 
 html{
   scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
 }
 
 body{
   margin:0;
+  min-height:100vh;
+  overflow-x:hidden;
   background:
     radial-gradient(circle at 80% 10%,rgba(255,37,52,.08),transparent 30%),
     var(--bg);
   color:var(--text);
   font-family:Inter,Segoe UI,Arial,sans-serif;
-  min-height:100vh;
 }
 
 body.textile{
@@ -48,6 +51,13 @@ body.textile{
     var(--bg);
 }
 
+button,
+input,
+textarea,
+select{
+  font-family:inherit;
+}
+
 /* =========================================================
    HERO
 ========================================================= */
@@ -56,16 +66,18 @@ body.textile{
   position:relative;
   min-height:650px;
   overflow:hidden;
+
   background-image:
     linear-gradient(
       90deg,
       rgba(3,8,18,.98) 0%,
-      rgba(3,8,18,.94) 27%,
-      rgba(3,8,18,.68) 51%,
-      rgba(3,8,18,.20) 78%,
-      rgba(3,8,18,.42) 100%
+      rgba(3,8,18,.94) 28%,
+      rgba(3,8,18,.70) 53%,
+      rgba(3,8,18,.25) 78%,
+      rgba(3,8,18,.45) 100%
     ),
     var(--hero);
+
   background-size:cover;
   background-position:center;
 }
@@ -74,32 +86,48 @@ body.textile{
   content:"";
   position:absolute;
   inset:0;
-  background:
-    linear-gradient(180deg,rgba(0,0,0,.25),transparent 35%),
-    linear-gradient(0deg,var(--bg),transparent 22%);
   pointer-events:none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.25),
+      transparent 35%
+    ),
+    linear-gradient(
+      0deg,
+      var(--bg),
+      transparent 24%
+    );
 }
 
 /* =========================================================
-   NAVIGATION
+   NAV
 ========================================================= */
 
 .nav{
   position:relative;
-  z-index:10;
+  z-index:20;
+
   width:min(1400px,calc(100% - 50px));
   margin:auto;
+
   padding:22px 0;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
+
+  gap:20px;
 }
 
 .logo{
   display:block;
+
   width:250px;
-  height:auto;
+  max-width:45vw;
   max-height:72px;
+
   object-fit:contain;
   object-position:left center;
 }
@@ -107,15 +135,17 @@ body.textile{
 .nav-right{
   display:flex;
   align-items:center;
-  gap:30px;
+  gap:26px;
 }
 
 .nav-link{
   color:#dbe5f1;
   text-decoration:none;
-  font-size:14px;
-  font-weight:600;
-  transition:.25s;
+
+  font-size:13px;
+  font-weight:700;
+
+  transition:.2s;
 }
 
 .nav-link:hover{
@@ -125,41 +155,56 @@ body.textile{
 .publication-control{
   display:flex;
   align-items:center;
-  gap:10px;
-  padding:5px 7px 5px 14px;
+  gap:9px;
+
+  padding:5px 7px 5px 13px;
+
   border:1px solid rgba(255,255,255,.16);
-  border-radius:15px;
-  background:rgba(4,12,23,.78);
+  border-radius:14px;
+
+  background:rgba(4,12,23,.80);
   backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
 }
 
 .publication-control span{
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:.08em;
   color:#9eafc2;
+
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.10em;
+  white-space:nowrap;
 }
 
 .publication-select{
   appearance:none;
   -webkit-appearance:none;
+
+  min-width:165px;
+
   border:1px solid rgba(255,255,255,.18);
-  border-radius:11px;
+  border-radius:10px;
+
   background:
-    linear-gradient(45deg,transparent 50%,#a9b8c9 50%) calc(100% - 16px) 50%/5px 5px no-repeat,
-    linear-gradient(135deg,#a9b8c9 50%,transparent 50%) calc(100% - 12px) 50%/5px 5px no-repeat,
-    rgba(18,35,53,.95);
+    linear-gradient(45deg,transparent 50%,#a9b8c9 50%)
+      calc(100% - 15px) 50%/5px 5px no-repeat,
+    linear-gradient(135deg,#a9b8c9 50%,transparent 50%)
+      calc(100% - 11px) 50%/5px 5px no-repeat,
+    rgba(18,35,53,.96);
+
   color:white;
-  padding:11px 35px 11px 13px;
-  font-size:13px;
+
+  padding:10px 32px 10px 12px;
+
+  font-size:12px;
   font-weight:800;
+
   cursor:pointer;
   outline:none;
 }
 
 .publication-select:focus{
   border-color:var(--accent);
-  box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 15%,transparent);
 }
 
 /* =========================================================
@@ -169,143 +214,191 @@ body.textile{
 .hero-content{
   position:relative;
   z-index:5;
+
   width:min(1400px,calc(100% - 50px));
   margin:auto;
+
   padding-top:70px;
 }
 
 .kicker{
   color:var(--accent);
-  font-size:13px;
+
+  font-size:12px;
   font-weight:900;
   letter-spacing:.28em;
+
   margin-bottom:18px;
 }
 
 h1{
   margin:0;
-  max-width:760px;
-  font-size:clamp(44px,5vw,78px);
+
+  max-width:780px;
+
+  font-size:clamp(45px,5vw,78px);
   line-height:.98;
+
   letter-spacing:-.045em;
   font-weight:900;
 }
 
 .subtitle{
   margin-top:22px;
+
   max-width:650px;
+
   color:#c4d0dd;
-  font-size:18px;
+
+  font-size:17px;
   line-height:1.55;
 }
 
 .topic-tags{
   display:flex;
   flex-wrap:wrap;
-  gap:9px;
-  margin-top:28px;
+  gap:8px;
+
+  margin-top:27px;
 }
 
 .topic-tag{
   border:1px solid rgba(255,255,255,.14);
+
   background:rgba(9,23,39,.74);
-  padding:8px 13px;
+
+  padding:8px 12px;
+
   border-radius:30px;
+
   color:#cbd7e5;
-  font-size:11px;
+
+  font-size:10px;
   font-weight:800;
   letter-spacing:.04em;
 }
 
 /* =========================================================
-   FEATURE STRIP
+   FEATURES
 ========================================================= */
 
 .features{
-  width:min(1400px,calc(100% - 50px));
-  margin:75px auto 0;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
   position:relative;
   z-index:5;
+
+  width:min(1400px,calc(100% - 50px));
+  margin:75px auto 0;
+
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+
+  gap:16px;
 }
 
 .feature{
   display:flex;
   align-items:center;
-  gap:14px;
-  padding:16px;
+  gap:13px;
+
+  padding:15px;
+
   border-top:1px solid rgba(255,255,255,.13);
   border-bottom:1px solid rgba(255,255,255,.08);
-  background:rgba(2,9,18,.32);
+
+  background:rgba(2,9,18,.34);
+
   backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
 }
 
 .feature-icon{
-  width:43px;
-  height:43px;
-  flex:0 0 43px;
-  border-radius:12px;
+  width:42px;
+  height:42px;
+  flex:0 0 42px;
+
+  border-radius:11px;
+
   display:grid;
   place-items:center;
+
   border:1px solid rgba(255,255,255,.13);
+
   color:var(--accent);
-  font-size:20px;
+
+  font-size:19px;
 }
 
 .feature strong{
   display:block;
-  font-size:13px;
+
+  font-size:12px;
   margin-bottom:3px;
 }
 
 .feature small{
   color:#8fa2b7;
-  font-size:11px;
+  font-size:10px;
 }
 
 /* =========================================================
-   MAIN CONTENT
+   MAIN
 ========================================================= */
 
 .main{
-  width:min(1400px,calc(100% - 50px));
-  margin:-15px auto 80px;
   position:relative;
   z-index:20;
+
+  width:min(1400px,calc(100% - 50px));
+
+  margin:-15px auto 75px;
 }
 
 .workspace{
   display:grid;
+
   grid-template-columns:430px minmax(0,1fr);
+
   gap:22px;
+
   align-items:start;
 }
 
 .card{
   border:1px solid var(--line);
+
   background:
-    linear-gradient(180deg,rgba(10,27,45,.96),rgba(5,15,27,.96));
+    linear-gradient(
+      180deg,
+      rgba(10,27,45,.97),
+      rgba(5,15,27,.97)
+    );
+
   border-radius:18px;
-  box-shadow:0 25px 80px rgba(0,0,0,.35);
+
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.35);
+
   overflow:hidden;
 }
 
 .card-header{
-  padding:25px 25px 20px;
+  padding:24px 25px 19px;
+
   border-bottom:1px solid var(--line);
 }
 
 .card-header h2{
   margin:0;
-  font-size:19px;
+
+  font-size:18px;
 }
 
 .card-header p{
   margin:8px 0 0;
+
   color:#8194a9;
-  font-size:12px;
+
+  font-size:11px;
   line-height:1.5;
 }
 
@@ -314,16 +407,19 @@ h1{
 }
 
 .form-group{
-  margin-bottom:17px;
+  margin-bottom:16px;
 }
 
 label{
   display:flex;
   align-items:center;
   gap:5px;
+
   margin-bottom:7px;
+
   color:#dbe5ef;
-  font-size:12px;
+
+  font-size:11px;
   font-weight:800;
 }
 
@@ -337,17 +433,23 @@ label{
 }
 
 input,
-textarea,
-select{
+textarea{
   width:100%;
+
   border:1px solid rgba(255,255,255,.11);
+
   background:rgba(15,34,53,.88);
+
   color:#f3f7fb;
+
   border-radius:10px;
-  padding:13px 14px;
-  font:inherit;
+
+  padding:12px 13px;
+
   font-size:13px;
+
   outline:none;
+
   transition:.2s;
 }
 
@@ -357,41 +459,60 @@ textarea::placeholder{
 }
 
 input:focus,
-textarea:focus,
-select:focus{
+textarea:focus{
   border-color:var(--accent);
-  box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 10%,transparent);
+
   background:rgba(17,39,60,.96);
+
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,.025);
 }
 
 textarea{
-  min-height:90px;
+  min-height:85px;
   resize:vertical;
 }
 
 .form-row{
   display:grid;
+
   grid-template-columns:1fr 1fr;
-  gap:13px;
+
+  gap:12px;
 }
 
 .buttons{
   display:flex;
-  gap:10px;
-  margin-top:23px;
+  gap:9px;
+
+  margin-top:21px;
 }
 
 .generate-btn{
   flex:1;
+
   border:0;
   border-radius:10px;
-  padding:14px 18px;
-  background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+
+  padding:14px 17px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--accent),
+      var(--accent-soft)
+    );
+
   color:white;
+
+  font-size:12px;
   font-weight:900;
-  font-size:13px;
+
   cursor:pointer;
-  box-shadow:0 10px 25px color-mix(in srgb,var(--accent) 20%,transparent);
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.22);
+
   transition:.2s;
 }
 
@@ -400,19 +521,27 @@ textarea{
   filter:brightness(1.08);
 }
 
-.clear-btn{
-  border:1px solid rgba(255,255,255,.18);
-  background:transparent;
-  color:#d8e2ed;
-  border-radius:10px;
-  padding:0 20px;
-  font-weight:800;
-  cursor:pointer;
-  transition:.2s;
+.generate-btn:disabled{
+  opacity:.65;
+  cursor:wait;
+  transform:none;
 }
 
-.clear-btn:hover{
-  background:rgba(255,255,255,.06);
+.clear-btn{
+  border:1px solid rgba(255,255,255,.18);
+
+  background:transparent;
+
+  color:#d8e2ed;
+
+  border-radius:10px;
+
+  padding:0 18px;
+
+  font-size:11px;
+  font-weight:800;
+
+  cursor:pointer;
 }
 
 /* =========================================================
@@ -425,36 +554,50 @@ textarea{
 
 .results-header{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
-  padding:25px;
+
+  gap:15px;
+
+  padding:24px 25px;
+
   border-bottom:1px solid var(--line);
 }
 
 .results-title{
-  font-size:18px;
+  font-size:17px;
   font-weight:900;
 }
 
 .results-subtitle{
   margin-top:6px;
+
   color:#7f93a9;
-  font-size:12px;
+
+  font-size:11px;
 }
 
 .result-actions{
   display:flex;
   gap:8px;
+  flex-shrink:0;
 }
 
 .small-btn{
   border:1px solid rgba(255,255,255,.14);
+
   background:rgba(255,255,255,.04);
+
   color:#dbe5ef;
-  border-radius:9px;
-  padding:9px 12px;
+
+  border-radius:8px;
+
+  padding:8px 11px;
+
   cursor:pointer;
-  font-size:11px;
+
+  font-size:10px;
   font-weight:800;
 }
 
@@ -468,41 +611,57 @@ textarea{
 
 .empty-state{
   min-height:390px;
+
   display:flex;
   flex-direction:column;
+
   align-items:center;
   justify-content:center;
+
   text-align:center;
+
   color:#6f8399;
 }
 
 .empty-icon{
-  width:62px;
-  height:62px;
+  width:60px;
+  height:60px;
+
   border:1px solid rgba(255,255,255,.12);
-  border-radius:17px;
+
+  border-radius:16px;
+
   display:grid;
   place-items:center;
+
   color:var(--accent);
-  font-size:28px;
-  margin-bottom:18px;
+
+  font-size:27px;
+
+  margin-bottom:17px;
 }
 
 .empty-state strong{
   color:#dfe7ef;
-  font-size:15px;
+
+  font-size:14px;
+
   margin-bottom:7px;
 }
 
 .empty-state p{
   max-width:470px;
+
   line-height:1.6;
+
   margin:0;
-  font-size:13px;
+
+  font-size:12px;
 }
 
 .question{
   padding:18px 0;
+
   border-bottom:1px solid rgba(255,255,255,.09);
 }
 
@@ -512,26 +671,37 @@ textarea{
 
 .question-number{
   color:var(--accent);
-  font-size:11px;
+
+  font-size:10px;
   font-weight:900;
+
   letter-spacing:.12em;
+
   margin-bottom:8px;
 }
 
 .question-text{
-  font-size:15px;
-  line-height:1.6;
+  font-size:14px;
+
+  line-height:1.65;
+
   color:#edf3f8;
 }
 
 .question-angle{
   display:inline-block;
+
   margin-top:10px;
+
   padding:5px 8px;
+
   border:1px solid rgba(255,255,255,.10);
+
   border-radius:6px;
+
   color:#8fa2b6;
-  font-size:10px;
+
+  font-size:9px;
 }
 
 /* =========================================================
@@ -540,10 +710,15 @@ textarea{
 
 .research-status{
   display:none;
-  margin:0 0 20px;
+
+  margin:0 0 18px;
+
   border:1px solid rgba(255,255,255,.11);
-  border-radius:12px;
-  padding:15px;
+
+  border-radius:11px;
+
+  padding:14px;
+
   background:rgba(2,10,19,.65);
 }
 
@@ -552,18 +727,24 @@ textarea{
 }
 
 .status-title{
-  font-size:12px;
+  font-size:11px;
   font-weight:900;
-  margin-bottom:12px;
+
+  margin-bottom:11px;
 }
 
 .status-step{
   display:flex;
+
   align-items:center;
+
   gap:9px;
+
   color:#71869d;
-  font-size:11px;
-  margin:8px 0;
+
+  font-size:10px;
+
+  margin:7px 0;
 }
 
 .status-step.active{
@@ -575,16 +756,24 @@ textarea{
 }
 
 .spinner{
-  width:13px;
-  height:13px;
+  width:12px;
+  height:12px;
+
   border:2px solid rgba(255,255,255,.16);
+
   border-top-color:var(--accent);
+
   border-radius:50%;
+
   animation:spin .8s linear infinite;
+
+  flex:0 0 12px;
 }
 
 @keyframes spin{
-  to{transform:rotate(360deg)}
+  to{
+    transform:rotate(360deg);
+  }
 }
 
 /* =========================================================
@@ -592,52 +781,67 @@ textarea{
 ========================================================= */
 
 .research-summary{
-  margin-bottom:22px;
-  padding:17px;
+  margin-bottom:20px;
+
+  padding:16px;
+
   border:1px solid rgba(255,255,255,.10);
+
   border-radius:11px;
+
   background:rgba(255,255,255,.025);
 }
 
 .research-summary-title{
   color:var(--accent);
-  font-size:11px;
+
+  font-size:10px;
   font-weight:900;
+
   letter-spacing:.12em;
+
   margin-bottom:8px;
 }
 
 .research-summary p{
   margin:0;
+
   color:#9aabbd;
-  font-size:12px;
+
+  font-size:11px;
+
   line-height:1.6;
 }
 
 .sources{
-  margin-top:22px;
+  margin-top:20px;
 }
 
 .sources-title{
   color:#dbe5ef;
-  font-size:12px;
+
+  font-size:11px;
   font-weight:900;
-  margin-bottom:9px;
+
+  margin-bottom:8px;
 }
 
 .source-link{
   display:block;
-  color:var(--accent-soft);
-  font-size:11px;
-  text-decoration:none;
-  margin:6px 0;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
 
-.source-link:hover{
-  text-decoration:underline;
+  color:var(--accent-soft);
+
+  font-size:10px;
+
+  text-decoration:none;
+
+  margin:5px 0;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+  white-space:nowrap;
 }
 
 /* =========================================================
@@ -646,56 +850,96 @@ textarea{
 
 .footer{
   width:min(1400px,calc(100% - 50px));
-  margin:0 auto 35px;
-  padding-top:22px;
+
+  margin:0 auto 30px;
+
+  padding-top:20px;
+
   border-top:1px solid rgba(255,255,255,.09);
+
   color:#63778c;
-  font-size:11px;
+
+  font-size:10px;
+
   display:flex;
+
   justify-content:space-between;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:1050px){
+
+  .workspace{
+    grid-template-columns:1fr;
+  }
+
+  .form-card{
+    width:100%;
+  }
+
+  .features{
+    grid-template-columns:repeat(2,1fr);
+  }
 }
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
-@media(max-width:1000px){
+@media(max-width:700px){
 
-  .workspace{
-    grid-template-columns:1fr;
-  }
-
-  .features{
-    grid-template-columns:1fr 1fr;
+  body{
+    min-width:0;
   }
 
   .hero{
-    min-height:620px;
-  }
-}
+    min-height:700px;
 
-@media(max-width:700px){
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(3,8,18,.94) 0%,
+        rgba(3,8,18,.88) 42%,
+        rgba(3,8,18,.54) 68%,
+        rgba(3,8,18,.94) 100%
+      ),
+      var(--hero);
 
-  .nav,
-  .hero-content,
-  .features,
-  .main,
-  .footer{
-    width:calc(100% - 28px);
+    background-position:center;
   }
 
   .nav{
-    align-items:flex-start;
-    gap:15px;
+    width:calc(100% - 28px);
+
+    padding:
+      max(15px,env(safe-area-inset-top))
+      0
+      15px;
+
+    flex-direction:column;
+
+    align-items:stretch;
+
+    gap:13px;
   }
 
   .logo{
-    width:175px;
-    max-height:55px;
+    width:185px;
+    max-width:65%;
+    max-height:52px;
   }
 
   .nav-right{
-    gap:10px;
+    width:100%;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:0;
   }
 
   .nav-link{
@@ -703,78 +947,316 @@ textarea{
   }
 
   .publication-control{
-    padding-left:8px;
+    width:100%;
+
+    justify-content:space-between;
+
+    padding:5px;
   }
 
   .publication-control span{
-    display:none;
+    display:block;
+
+    padding-left:7px;
+
+    font-size:9px;
+  }
+
+  .publication-select{
+    min-width:0;
+
+    width:190px;
+    max-width:58vw;
+
+    padding:
+      10px 30px 10px 10px;
+
+    font-size:11px;
   }
 
   .hero-content{
-    padding-top:55px;
+    width:calc(100% - 28px);
+
+    padding-top:60px;
+  }
+
+  .kicker{
+    font-size:9px;
+
+    letter-spacing:.20em;
+
+    margin-bottom:14px;
   }
 
   h1{
-    font-size:45px;
+    max-width:100%;
+
+    font-size:
+      clamp(38px,12vw,54px);
+
+    line-height:1;
+
+    letter-spacing:-.04em;
   }
 
   .subtitle{
-    font-size:15px;
+    margin-top:18px;
+
+    max-width:100%;
+
+    font-size:14px;
+
+    line-height:1.5;
+  }
+
+  .topic-tags{
+    margin-top:21px;
+
+    gap:6px;
+  }
+
+  .topic-tag{
+    padding:7px 9px;
+
+    font-size:8px;
   }
 
   .features{
+    width:calc(100% - 28px);
+
+    margin-top:55px;
+
     grid-template-columns:1fr 1fr;
-    margin-top:50px;
+
+    gap:8px;
   }
 
   .feature{
-    padding:11px;
+    padding:10px;
+
+    gap:9px;
+
+    min-width:0;
+  }
+
+  .feature-icon{
+    width:34px;
+    height:34px;
+    flex:0 0 34px;
+
+    font-size:15px;
+  }
+
+  .feature strong{
+    font-size:10px;
   }
 
   .feature small{
     display:none;
   }
 
+  .main{
+    width:calc(100% - 20px);
+
+    margin:
+      0 auto
+      50px;
+  }
+
+  .workspace{
+    display:block;
+  }
+
+  .card{
+    width:100%;
+
+    border-radius:14px;
+  }
+
+  .card + .card{
+    margin-top:14px;
+  }
+
+  .card-header{
+    padding:19px 17px 16px;
+  }
+
+  .card-header h2{
+    font-size:16px;
+  }
+
+  .card-header p{
+    font-size:10px;
+  }
+
+  .form{
+    padding:17px;
+  }
+
   .form-row{
-    grid-template-columns:1fr;
+    display:block;
+  }
+
+  .form-group{
+    margin-bottom:14px;
+  }
+
+  label{
+    font-size:10px;
+  }
+
+  input,
+  textarea{
+    min-height:44px;
+
+    padding:11px 12px;
+
+    font-size:12px;
+  }
+
+  textarea{
+    min-height:80px;
   }
 
   .buttons{
+    display:flex;
+
     flex-direction:column;
+
+    gap:8px;
+  }
+
+  .generate-btn{
+    width:100%;
+
+    min-height:46px;
   }
 
   .clear-btn{
-    padding:13px;
+    width:100%;
+
+    min-height:42px;
   }
 
   .results-header{
-    align-items:flex-start;
-    gap:15px;
+    padding:18px 17px;
+
     flex-direction:column;
+
+    align-items:stretch;
+
+    gap:13px;
+  }
+
+  .results-title{
+    font-size:15px;
+
+    line-height:1.3;
+  }
+
+  .results-subtitle{
+    font-size:10px;
+  }
+
+  .result-actions{
+    width:100%;
+  }
+
+  .small-btn{
+    flex:1;
+
+    min-height:38px;
+  }
+
+  .results-body{
+    padding:17px;
+  }
+
+  .empty-state{
+    min-height:300px;
+  }
+
+  .empty-state p{
+    font-size:11px;
+  }
+
+  .question{
+    padding:16px 0;
+  }
+
+  .question-text{
+    font-size:13px;
+
+    line-height:1.6;
   }
 
   .footer{
+    width:calc(100% - 28px);
+
     flex-direction:column;
-    gap:8px;
+
+    gap:7px;
+
+    margin-bottom:22px;
   }
 }
 
-@media(max-width:450px){
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media(max-width:390px){
+
+  .logo{
+    width:160px;
+  }
+
+  .publication-select{
+    width:160px;
+  }
+
+  .publication-control span{
+    font-size:8px;
+  }
+
+  .hero{
+    min-height:730px;
+  }
+
+  h1{
+    font-size:36px;
+  }
 
   .features{
     grid-template-columns:1fr;
   }
 
-  h1{
-    font-size:38px;
+  .feature{
+    padding:12px;
   }
 
-  .topic-tags{
-    gap:6px;
+  .feature small{
+    display:block;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
   }
 }
 </style>
 </head>
+
 
 <body>
 
@@ -791,11 +1273,17 @@ textarea{
 
     <div class="nav-right">
 
-      <a href="#generator" class="nav-link">
+      <a
+        href="#generator"
+        class="nav-link"
+      >
         Interview Generator
       </a>
 
-      <a href="#how" class="nav-link">
+      <a
+        href="#how"
+        class="nav-link"
+      >
         How it works
       </a>
 
@@ -808,8 +1296,15 @@ textarea{
           class="publication-select"
           onchange="changePublication()"
         >
-          <option value="MotorIndia">MotorIndia</option>
-          <option value="Textile Magazine">Textile Magazine</option>
+
+          <option value="MotorIndia">
+            MotorIndia
+          </option>
+
+          <option value="Textile Magazine">
+            Textile Magazine
+          </option>
+
         </select>
 
       </div>
@@ -821,25 +1316,51 @@ textarea{
 
   <div class="hero-content">
 
-    <div class="kicker" id="heroKicker">
+    <div
+      class="kicker"
+      id="heroKicker"
+    >
       INSIGHTS. IDEAS. IMPACT.
     </div>
+
 
     <h1>
       Interview Questions Generator
     </h1>
 
-    <div class="subtitle" id="heroSubtitle">
+
+    <div
+      class="subtitle"
+      id="heroSubtitle"
+    >
       Research-led interview questions for automotive & mobility journalism.
     </div>
 
-    <div class="topic-tags" id="topicTags">
 
-      <span class="topic-tag">AUTOMOTIVE</span>
-      <span class="topic-tag">COMMERCIAL VEHICLES</span>
-      <span class="topic-tag">MOBILITY</span>
-      <span class="topic-tag">TECHNOLOGY</span>
-      <span class="topic-tag">SUSTAINABILITY</span>
+    <div
+      class="topic-tags"
+      id="topicTags"
+    >
+
+      <span class="topic-tag">
+        AUTOMOTIVE
+      </span>
+
+      <span class="topic-tag">
+        COMMERCIAL VEHICLES
+      </span>
+
+      <span class="topic-tag">
+        MOBILITY
+      </span>
+
+      <span class="topic-tag">
+        TECHNOLOGY
+      </span>
+
+      <span class="topic-tag">
+        SUSTAINABILITY
+      </span>
 
     </div>
 
@@ -850,7 +1371,9 @@ textarea{
 
     <div class="feature">
 
-      <div class="feature-icon">⌕</div>
+      <div class="feature-icon">
+        ⌕
+      </div>
 
       <div>
         <strong>Deep Research</strong>
@@ -862,7 +1385,9 @@ textarea{
 
     <div class="feature">
 
-      <div class="feature-icon">◎</div>
+      <div class="feature-icon">
+        ◎
+      </div>
 
       <div>
         <strong>Industry Focus</strong>
@@ -874,7 +1399,9 @@ textarea{
 
     <div class="feature">
 
-      <div class="feature-icon">☷</div>
+      <div class="feature-icon">
+        ☷
+      </div>
 
       <div>
         <strong>10 Tailored Questions</strong>
@@ -886,7 +1413,9 @@ textarea{
 
     <div class="feature">
 
-      <div class="feature-icon">ϟ</div>
+      <div class="feature-icon">
+        ϟ
+      </div>
 
       <div>
         <strong>Save Time</strong>
@@ -900,18 +1429,25 @@ textarea{
 </section>
 
 
-<main class="main" id="generator">
+<main
+  class="main"
+  id="generator"
+>
 
   <div class="workspace">
 
 
-    <!-- FORM -->
+    <!-- =====================================================
+         FORM
+    ====================================================== -->
 
-    <section class="card">
+    <section class="card form-card">
 
       <div class="card-header">
 
-        <h2>Interview Details</h2>
+        <h2>
+          Interview Details
+        </h2>
 
         <p>
           Give the generator enough context to shape the conversation.
@@ -920,7 +1456,11 @@ textarea{
       </div>
 
 
-      <form class="form" id="interviewForm">
+      <form
+        class="form"
+        id="interviewForm"
+      >
+
 
         <div class="form-row">
 
@@ -935,6 +1475,7 @@ textarea{
               id="name"
               type="text"
               placeholder="Full name"
+              autocomplete="name"
               required
             >
 
@@ -983,12 +1524,15 @@ textarea{
 
             <label>
               Company Website
-              <span class="optional">(optional)</span>
+              <span class="optional">
+                (optional)
+              </span>
             </label>
 
             <input
               id="companyUrl"
               type="url"
+              inputmode="url"
               placeholder="https://..."
             >
 
@@ -1020,12 +1564,15 @@ textarea{
 
             <label>
               Event Website
-              <span class="optional">(optional)</span>
+              <span class="optional">
+                (optional)
+              </span>
             </label>
 
             <input
               id="eventUrl"
               type="url"
+              inputmode="url"
               placeholder="https://..."
             >
 
@@ -1038,7 +1585,9 @@ textarea{
 
           <label>
             Event Theme
-            <span class="optional">(optional)</span>
+            <span class="optional">
+              (optional)
+            </span>
           </label>
 
           <input
@@ -1054,12 +1603,15 @@ textarea{
 
           <label>
             Executive / Profile URL
-            <span class="optional">(optional)</span>
+            <span class="optional">
+              (optional)
+            </span>
           </label>
 
           <input
             id="profileUrl"
             type="url"
+            inputmode="url"
             placeholder="LinkedIn or executive profile URL"
           >
 
@@ -1070,7 +1622,9 @@ textarea{
 
           <label>
             Interview Angle
-            <span class="optional">(optional)</span>
+            <span class="optional">
+              (optional)
+            </span>
           </label>
 
           <input
@@ -1086,7 +1640,9 @@ textarea{
 
           <label>
             Custom Focus
-            <span class="optional">(optional)</span>
+            <span class="optional">
+              (optional)
+            </span>
           </label>
 
           <textarea
@@ -1097,35 +1653,75 @@ textarea{
         </div>
 
 
-        <div class="research-status" id="researchStatus">
+        <!-- RESEARCH STATUS -->
+
+        <div
+          class="research-status"
+          id="researchStatus"
+        >
 
           <div class="status-title">
             RESEARCH WORKFLOW
           </div>
 
-          <div class="status-step" id="status1">
+
+          <div
+            class="status-step"
+            id="status1"
+          >
+
             <span class="spinner"></span>
+
             Checking supplied sources
+
           </div>
 
-          <div class="status-step" id="status2">
+
+          <div
+            class="status-step"
+            id="status2"
+          >
+
             <span>○</span>
+
             Reviewing company information
+
           </div>
 
-          <div class="status-step" id="status3">
+
+          <div
+            class="status-step"
+            id="status3"
+          >
+
             <span>○</span>
+
             Reviewing executive information
+
           </div>
 
-          <div class="status-step" id="status4">
+
+          <div
+            class="status-step"
+            id="status4"
+          >
+
             <span>○</span>
+
             Building interview angles
+
           </div>
 
-          <div class="status-step" id="status5">
+
+          <div
+            class="status-step"
+            id="status5"
+          >
+
             <span>○</span>
+
             Preparing your questions
+
           </div>
 
         </div>
@@ -1140,6 +1736,7 @@ textarea{
           >
             ✦ Generate Questions
           </button>
+
 
           <button
             type="button"
@@ -1156,7 +1753,9 @@ textarea{
     </section>
 
 
-    <!-- RESULTS -->
+    <!-- =====================================================
+         RESULTS
+    ====================================================== -->
 
     <section class="card results-card">
 
@@ -1170,6 +1769,7 @@ textarea{
           >
             MOTORINDIA Interview Questions
           </div>
+
 
           <div
             class="results-subtitle"
@@ -1192,6 +1792,7 @@ textarea{
             ↻ Regenerate
           </button>
 
+
           <button
             class="small-btn"
             onclick="clearResults()"
@@ -1204,13 +1805,22 @@ textarea{
       </div>
 
 
-      <div class="results-body" id="resultsBody">
+      <div
+        class="results-body"
+        id="resultsBody"
+      >
 
         <div class="empty-state">
 
-          <div class="empty-icon">✦</div>
+          <div class="empty-icon">
+            ✦
+          </div>
 
-          <strong>Ready when you are.</strong>
+
+          <strong>
+            Ready when you are.
+          </strong>
+
 
           <p>
             Enter the interviewee, company and event details.
@@ -1244,7 +1854,7 @@ textarea{
 <script>
 
 /* =========================================================
-   GOOGLE APPS SCRIPT CONNECTION
+   GOOGLE APPS SCRIPT ENDPOINT
 ========================================================= */
 
 const API_ENDPOINT =
@@ -1319,7 +1929,7 @@ const themes = {
 
 
 /* =========================================================
-   CHANGE PUBLICATION
+   PUBLICATION CHANGE
 ========================================================= */
 
 function changePublication(){
@@ -1330,16 +1940,22 @@ function changePublication(){
   const theme =
     themes[publication];
 
+
   document.body.classList.toggle(
     "textile",
     publication === "Textile Magazine"
   );
 
 
-  document.getElementById("publicationLogo").src =
+  document.getElementById(
+    "publicationLogo"
+  ).src =
     theme.logo;
 
-  document.getElementById("publicationLogo").alt =
+
+  document.getElementById(
+    "publicationLogo"
+  ).alt =
     publication;
 
 
@@ -1349,46 +1965,66 @@ function changePublication(){
   );
 
 
-  document.getElementById("heroKicker").textContent =
+  document.getElementById(
+    "heroKicker"
+  ).textContent =
     theme.kicker;
 
-  document.getElementById("heroSubtitle").textContent =
+
+  document.getElementById(
+    "heroSubtitle"
+  ).textContent =
     theme.subtitle;
 
 
   const tagContainer =
-    document.getElementById("topicTags");
+    document.getElementById(
+      "topicTags"
+    );
+
 
   tagContainer.innerHTML = "";
+
 
   theme.tags.forEach(function(tag){
 
     const span =
       document.createElement("span");
 
-    span.className = "topic-tag";
-    span.textContent = tag;
+    span.className =
+      "topic-tag";
 
-    tagContainer.appendChild(span);
+    span.textContent =
+      tag;
+
+    tagContainer.appendChild(
+      span
+    );
 
   });
 
 
-  document.getElementById("resultsTitle").textContent =
+  document.getElementById(
+    "resultsTitle"
+  ).textContent =
     theme.resultTitle;
 
-  document.getElementById("resultsSubtitle").textContent =
+
+  document.getElementById(
+    "resultsSubtitle"
+  ).textContent =
     theme.resultSubtitle;
 
 
   document.title =
-    publication + " Interview Questions Generator";
+    publication +
+    " Interview Questions Generator";
 
 }
 
 
 /* =========================================================
-   JSONP REQUEST
+   MOBILE-FRIENDLY JSONP
 ========================================================= */
 
 function requestJsonp(payload){
@@ -1396,34 +2032,42 @@ function requestJsonp(payload){
   return new Promise(function(resolve,reject){
 
     const callbackName =
-      "jsonpCallback_" +
+      "callback_" +
       Date.now() +
       "_" +
-      Math.floor(Math.random()*100000);
+      Math.random()
+        .toString(36)
+        .substring(2,10);
 
 
-    let finished = false;
+    let completed = false;
 
 
     const script =
       document.createElement("script");
 
 
-    const params =
-      new URLSearchParams();
+    const params = [];
 
 
     Object.keys(payload).forEach(function(key){
 
+      const value =
+        payload[key];
+
+
       if(
-        payload[key] !== undefined &&
-        payload[key] !== null &&
-        payload[key] !== ""
+        value !== undefined &&
+        value !== null &&
+        value !== ""
       ){
 
-        params.append(
-          key,
-          payload[key]
+        params.push(
+          encodeURIComponent(key) +
+          "=" +
+          encodeURIComponent(
+            String(value)
+          )
         );
 
       }
@@ -1431,81 +2075,138 @@ function requestJsonp(payload){
     });
 
 
-    params.append(
-      "callback",
-      callbackName
+    params.push(
+      "callback=" +
+      encodeURIComponent(
+        callbackName
+      )
     );
 
 
-    window[callbackName] =
-      function(data){
-
-        if(finished) return;
-
-        finished = true;
-
-        cleanup();
-
-        resolve(data);
-
-      };
+    let timeout;
 
 
     function cleanup(){
 
       if(script.parentNode){
-        script.parentNode.removeChild(script);
+
+        script.parentNode.removeChild(
+          script
+        );
+
       }
 
+
       try{
+
         delete window[callbackName];
-      }catch(e){}
+
+      }catch(error){}
 
     }
+
+
+    window[callbackName] =
+      function(data){
+
+        if(completed){
+          return;
+        }
+
+
+        completed = true;
+
+
+        clearTimeout(timeout);
+
+
+        cleanup();
+
+
+        if(
+          data &&
+          data.success
+        ){
+
+          resolve(data);
+
+        }else{
+
+          reject(
+            new Error(
+              data &&
+              data.error
+                ? data.error
+                : "The generator returned an error."
+            )
+          );
+
+        }
+
+      };
 
 
     script.onerror =
       function(){
 
-        if(finished) return;
+        if(completed){
+          return;
+        }
 
-        finished = true;
+
+        completed = true;
+
+
+        clearTimeout(timeout);
+
 
         cleanup();
 
+
         reject(
           new Error(
-            "Unable to connect to the question generator."
+            "Unable to connect to the generator. Please try again."
           )
         );
 
       };
 
 
-    setTimeout(function(){
+    timeout =
+      setTimeout(function(){
 
-      if(finished) return;
+        if(completed){
+          return;
+        }
 
-      finished = true;
 
-      cleanup();
+        completed = true;
 
-      reject(
-        new Error(
-          "The request timed out. Please try again."
-        )
-      );
 
-    },30000);
+        cleanup();
+
+
+        reject(
+          new Error(
+            "The generator took too long to respond. Please try again."
+          )
+        );
+
+      },45000);
+
+
+    script.async = true;
 
 
     script.src =
       API_ENDPOINT +
       "?" +
-      params.toString();
+      params.join("&");
 
 
-    document.body.appendChild(script);
+    document.body.appendChild(
+      script
+    );
 
   });
 
@@ -1513,39 +2214,69 @@ function requestJsonp(payload){
 
 
 /* =========================================================
-   GENERATE
+   FORM SUBMIT
 ========================================================= */
 
 document
-.getElementById("interviewForm")
-.addEventListener("submit",function(event){
+  .getElementById(
+    "interviewForm"
+  )
+  .addEventListener(
+    "submit",
+    function(event){
 
-  event.preventDefault();
+      event.preventDefault();
 
-  generateQuestions(false);
+      generateQuestions(false);
 
-});
+    }
+  );
 
 
-async function generateQuestions(regenerate){
+/* =========================================================
+   GENERATE QUESTIONS
+========================================================= */
+
+async function generateQuestions(
+  regenerate
+){
 
   const publication =
-    document.getElementById("publication").value;
+    document.getElementById(
+      "publication"
+    ).value;
+
 
   const name =
-    document.getElementById("name").value.trim();
+    document.getElementById(
+      "name"
+    ).value.trim();
+
 
   const designation =
-    document.getElementById("designation").value.trim();
+    document.getElementById(
+      "designation"
+    ).value.trim();
+
 
   const company =
-    document.getElementById("company").value.trim();
+    document.getElementById(
+      "company"
+    ).value.trim();
+
 
   const event =
-    document.getElementById("event").value.trim();
+    document.getElementById(
+      "event"
+    ).value.trim();
 
 
-  if(!name || !designation || !company || !event){
+  if(
+    !name ||
+    !designation ||
+    !company ||
+    !event
+  ){
 
     alert(
       "Please fill in Person Being Interviewed, Designation, Company Name and Event / Exhibition Name."
@@ -1569,25 +2300,39 @@ async function generateQuestions(regenerate){
     event:event,
 
     theme:
-      document.getElementById("theme").value.trim(),
+      document.getElementById(
+        "theme"
+      ).value.trim(),
 
     companyUrl:
-      document.getElementById("companyUrl").value.trim(),
+      document.getElementById(
+        "companyUrl"
+      ).value.trim(),
 
     profileUrl:
-      document.getElementById("profileUrl").value.trim(),
+      document.getElementById(
+        "profileUrl"
+      ).value.trim(),
 
     eventUrl:
-      document.getElementById("eventUrl").value.trim(),
+      document.getElementById(
+        "eventUrl"
+      ).value.trim(),
 
     angle:
-      document.getElementById("angle").value.trim(),
+      document.getElementById(
+        "angle"
+      ).value.trim(),
 
     customFocus:
-      document.getElementById("customFocus").value.trim(),
+      document.getElementById(
+        "customFocus"
+      ).value.trim(),
 
     regenerate:
-      regenerate ? "true" : "false",
+      regenerate
+        ? "true"
+        : "false",
 
     seed:
       regenerate
@@ -1597,22 +2342,33 @@ async function generateQuestions(regenerate){
   };
 
 
-  lastPayload = payload;
+  lastPayload =
+    payload;
 
 
   const button =
-    document.getElementById("generateBtn");
+    document.getElementById(
+      "generateBtn"
+    );
+
 
   const status =
-    document.getElementById("researchStatus");
+    document.getElementById(
+      "researchStatus"
+    );
 
 
-  button.disabled = true;
+  button.disabled =
+    true;
+
 
   button.textContent =
     "Generating Questions...";
 
-  status.classList.add("active");
+
+  status.classList.add(
+    "active"
+  );
 
 
   runStatusAnimation();
@@ -1621,13 +2377,19 @@ async function generateQuestions(regenerate){
   try{
 
     const response =
-      await requestJsonp(payload);
+      await requestJsonp(
+        payload
+      );
 
 
-    if(!response || !response.success){
+    if(
+      !response ||
+      !response.success
+    ){
 
       throw new Error(
-        response && response.error
+        response &&
+        response.error
           ? response.error
           : "Generation failed."
       );
@@ -1642,16 +2404,24 @@ async function generateQuestions(regenerate){
 
   }catch(error){
 
-    document.getElementById("resultsBody").innerHTML = `
+    document.getElementById(
+      "resultsBody"
+    ).innerHTML = `
 
       <div class="empty-state">
 
-        <div class="empty-icon">!</div>
+        <div class="empty-icon">
+          !
+        </div>
 
-        <strong>Something went wrong.</strong>
+        <strong>
+          Something went wrong.
+        </strong>
 
         <p>
-          ${escapeHtml(error.message)}
+          ${escapeHtml(
+            error.message
+          )}
         </p>
 
       </div>
@@ -1660,12 +2430,17 @@ async function generateQuestions(regenerate){
 
   }finally{
 
-    button.disabled = false;
+    button.disabled =
+      false;
+
 
     button.textContent =
       "✦ Generate Questions";
 
-    status.classList.remove("active");
+
+    status.classList.remove(
+      "active"
+    );
 
   }
 
@@ -1673,7 +2448,7 @@ async function generateQuestions(regenerate){
 
 
 /* =========================================================
-   STATUS ANIMATION
+   RESEARCH ANIMATION
 ========================================================= */
 
 function runStatusAnimation(){
@@ -1690,16 +2465,31 @@ function runStatusAnimation(){
   steps.forEach(function(id,index){
 
     const element =
-      document.getElementById(id);
+      document.getElementById(
+        id
+      );
+
 
     element.classList.remove(
       "active",
       "done"
     );
 
+
+    element.children[0].textContent =
+      index === 0
+        ? ""
+        : "○";
+
+
     if(index === 0){
 
-      element.classList.add("active");
+      element.classList.add(
+        "active"
+      );
+
+      element.children[0].className =
+        "spinner";
 
     }
 
@@ -1710,28 +2500,55 @@ function runStatusAnimation(){
 
     setTimeout(function(){
 
-      steps.forEach(function(stepId,stepIndex){
+      steps.forEach(
+        function(
+          stepId,
+          stepIndex
+        ){
 
-        const step =
-          document.getElementById(stepId);
+          const step =
+            document.getElementById(
+              stepId
+            );
 
-        if(stepIndex < index){
 
-          step.classList.remove("active");
+          if(
+            stepIndex < index
+          ){
 
-          step.classList.add("done");
+            step.classList.remove(
+              "active"
+            );
 
-          step.children[0].textContent = "✓";
+
+            step.classList.add(
+              "done"
+            );
+
+
+            step.children[0].className =
+              "";
+
+
+            step.children[0].textContent =
+              "✓";
+
+          }
 
         }
-
-      });
+      );
 
 
       const current =
-        document.getElementById(id);
+        document.getElementById(
+          id
+        );
 
-      current.classList.add("active");
+
+      current.classList.add(
+        "active"
+      );
+
 
       current.children[0].className =
         "spinner";
@@ -1747,16 +2564,23 @@ function runStatusAnimation(){
    DISPLAY RESULTS
 ========================================================= */
 
-function displayResults(result){
+function displayResults(
+  result
+){
 
   const body =
-    document.getElementById("resultsBody");
+    document.getElementById(
+      "resultsBody"
+    );
 
 
   let html = "";
 
 
-  if(result.researchSummary){
+  if(
+    result &&
+    result.researchSummary
+  ){
 
     html += `
 
@@ -1767,7 +2591,9 @@ function displayResults(result){
         </div>
 
         <p>
-          ${escapeHtml(result.researchSummary)}
+          ${escapeHtml(
+            result.researchSummary
+          )}
         </p>
 
       </div>
@@ -1777,49 +2603,68 @@ function displayResults(result){
   }
 
 
-  if(result.questions && result.questions.length){
+  if(
+    result &&
+    result.questions &&
+    result.questions.length
+  ){
 
-    result.questions.forEach(function(item,index){
+    result.questions.forEach(
+      function(item,index){
 
-      const question =
-        typeof item === "string"
-          ? item
-          : item.question;
-
-      const angle =
-        typeof item === "object"
-          ? item.angle
-          : "";
+        const question =
+          typeof item === "string"
+            ? item
+            : item.question;
 
 
-      html += `
+        const angle =
+          typeof item === "object"
+            ? item.angle
+            : "";
 
-        <div class="question">
 
-          <div class="question-number">
-            QUESTION ${String(index+1).padStart(2,"0")}
+        html += `
+
+          <div class="question">
+
+            <div class="question-number">
+              QUESTION ${String(
+                index + 1
+              ).padStart(2,"0")}
+            </div>
+
+            <div class="question-text">
+              ${escapeHtml(
+                question
+              )}
+            </div>
+
+            ${
+              angle
+                ? `
+                  <div class="question-angle">
+                    ${escapeHtml(angle)}
+                  </div>
+                `
+                : ""
+            }
+
           </div>
 
-          <div class="question-text">
-            ${escapeHtml(question)}
-          </div>
+        `;
 
-          ${
-            angle
-              ? `<div class="question-angle">${escapeHtml(angle)}</div>`
-              : ""
-          }
-
-        </div>
-
-      `;
-
-    });
+      }
+    );
 
   }
 
 
-  if(result.sources && result.sources.length){
+  if(
+    result &&
+    result.sources &&
+    result.sources.length
+  ){
 
     html += `
 
@@ -1832,35 +2677,47 @@ function displayResults(result){
     `;
 
 
-    result.sources.forEach(function(source){
+    result.sources.forEach(
+      function(source){
 
-      html += `
+        html += `
 
-        <a
-          class="source-link"
-          href="${escapeAttribute(source.url)}"
-          target="_blank"
-          rel="noopener"
-        >
-          ${escapeHtml(source.title || source.url)}
-        </a>
+          <a
+            class="source-link"
+            href="${escapeAttribute(
+              source.url
+            )}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ${escapeHtml(
+              source.title ||
+              source.url
+            )}
+          </a>
 
-      `;
+        `;
 
-    });
+      }
+    );
 
 
-    html += "</div>";
+    html += `
+      </div>
+    `;
 
   }
 
 
-  body.innerHTML =
-    html || `
+  if(!html){
+
+    html = `
 
       <div class="empty-state">
 
-        <strong>No questions returned.</strong>
+        <strong>
+          No questions returned.
+        </strong>
 
         <p>
           Please try again with more interview details.
@@ -1869,6 +2726,12 @@ function displayResults(result){
       </div>
 
     `;
+
+  }
+
+
+  body.innerHTML =
+    html;
 
 
   document.getElementById(
@@ -1901,30 +2764,43 @@ function regenerateQuestions(){
 
   }
 
-  generateQuestions(true);
+
+  generateQuestions(
+    true
+  );
 
 }
 
 
 /* =========================================================
-   CLEAR
+   CLEAR EVERYTHING
 ========================================================= */
 
 function clearAll(){
 
   document
-    .getElementById("interviewForm")
+    .getElementById(
+      "interviewForm"
+    )
     .reset();
+
 
   clearResults();
 
 }
 
 
+/* =========================================================
+   CLEAR RESULTS
+========================================================= */
+
 function clearResults(){
 
   const publication =
-    document.getElementById("publication").value;
+    document.getElementById(
+      "publication"
+    ).value;
+
 
   const theme =
     themes[publication];
@@ -1936,9 +2812,13 @@ function clearResults(){
 
     <div class="empty-state">
 
-      <div class="empty-icon">✦</div>
+      <div class="empty-icon">
+        ✦
+      </div>
 
-      <strong>Ready when you are.</strong>
+      <strong>
+        Ready when you are.
+      </strong>
 
       <p>
         Enter the interviewee, company and event details.
@@ -1968,40 +2848,77 @@ function clearResults(){
     "none";
 
 
-  lastPayload = null;
+  lastPayload =
+    null;
 
 }
 
 
 /* =========================================================
-   SECURITY HELPERS
+   ESCAPE HTML
 ========================================================= */
 
-function escapeHtml(value){
+function escapeHtml(
+  value
+){
 
-  if(value === undefined || value === null){
+  if(
+    value === undefined ||
+    value === null
+  ){
+
     return "";
+
   }
 
+
   return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
 
-}
+    .replace(
+      /&/g,
+      "&amp;"
+    )
 
+    .replace(
+      /</g,
+      "&lt;"
+    )
 
-function escapeAttribute(value){
+    .replace(
+      />/g,
+      "&gt;"
+    )
 
-  return escapeHtml(value);
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
 
 /* =========================================================
-   INITIAL THEME
+   ESCAPE ATTRIBUTE
+========================================================= */
+
+function escapeAttribute(
+  value
+){
+
+  return escapeHtml(
+    value
+  );
+
+}
+
+
+/* =========================================================
+   INITIALISE
 ========================================================= */
 
 changePublication();
