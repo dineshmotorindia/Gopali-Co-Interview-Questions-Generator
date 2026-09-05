@@ -5,316 +5,145 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MotorIndia Interview Questions Generator</title>
 <style>
+:root{--accent:#ff2438;--accent2:#ff5261;--bg:#030914;--panel:rgba(7,20,35,.88);--line:rgba(255,255,255,.14);--text:#f7f9fc;--muted:#aeb9c9;--input:rgba(255,255,255,.055)}
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f3f6fa;color:#172033}
-.header{background:linear-gradient(135deg,#071d49,#0d3d82);color:#fff;padding:28px 20px}
-.header-inner{max-width:1180px;margin:auto}
-.logo-text{font-size:14px;font-weight:700;letter-spacing:2px;opacity:.85;text-transform:uppercase}
-h1{margin:8px 0 5px;font-size:32px}.subtitle{margin:0;color:#dce8f8;font-size:15px}
-.container{max-width:1180px;margin:30px auto;padding:0 20px}
-.grid{display:grid;grid-template-columns:430px 1fr;gap:24px}
-.card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 5px 20px rgba(20,40,70,.08);border:1px solid #e4eaf1}
-.card h2{margin:0 0 20px;font-size:20px;color:#092b63}
-.field{margin-bottom:15px}label{display:block;font-size:13px;font-weight:700;margin-bottom:6px;color:#344054}
-input,textarea,select{width:100%;padding:11px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;outline:none;background:#fff}
-input:focus,textarea:focus,select:focus{border-color:#1769d1;box-shadow:0 0 0 3px rgba(23,105,209,.1)}
-textarea{min-height:80px;resize:vertical}.optional{font-weight:400;color:#8a94a6}
-button{border:0;border-radius:9px;padding:13px 18px;font-size:14px;font-weight:700;cursor:pointer}
-.generate-btn{width:100%;background:#0b4ea2;color:#fff;margin-top:5px}.generate-btn:hover{background:#083d80}.generate-btn:disabled{background:#8aa4c6;cursor:wait}
-.clear-btn{background:#edf2f7;color:#344054}.top-actions{display:flex;gap:10px;margin-bottom:18px}
-.output-placeholder{color:#667085;line-height:1.6;text-align:center;padding:70px 20px}
-.loading{text-align:center;padding:50px 20px}.spinner{width:38px;height:38px;border:4px solid #dbe5f1;border-top-color:#0b4ea2;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 15px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.summary{background:#f4f8fd;border-left:4px solid #0b4ea2;padding:15px;border-radius:7px;margin-bottom:22px;line-height:1.6;font-size:14px}
-.question{border:1px solid #e1e7ef;border-radius:10px;padding:17px;margin-bottom:13px;background:#fff}
-.question-number{color:#0b4ea2;font-size:12px;font-weight:800;margin-bottom:7px;text-transform:uppercase;letter-spacing:.5px}
-.question-text{font-size:15px;line-height:1.55;font-weight:600}.question-angle{margin-top:9px;color:#667085;font-size:12px}
-.sources{margin-top:25px}.sources h3{color:#092b63;font-size:16px}.source{padding:9px 0;border-bottom:1px solid #edf0f4;font-size:13px}.source a{color:#0b4ea2;text-decoration:none;word-break:break-all}
-.error{background:#fff1f1;color:#a61b1b;border:1px solid #f2c2c2;padding:15px;border-radius:8px;line-height:1.5}.hidden{display:none}
-@media(max-width:900px){.grid{grid-template-columns:1fr}}@media(max-width:600px){h1{font-size:25px}.container{padding:0 12px;margin-top:18px}.card{padding:18px}}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,Segoe UI,Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .5s ease}
+body.textile{--accent:#158cff;--accent2:#48b5ff}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 20% 15%,rgba(21,140,255,.07),transparent 30%),radial-gradient(circle at 85% 35%,rgba(255,36,56,.06),transparent 28%);z-index:-1}
+.header{position:relative;min-height:600px;overflow:hidden;background:#020813}
+.hero-bg{position:absolute;inset:0;background-position:center;background-size:cover;transition:background-image .45s ease,opacity .45s ease;transform:scale(1.015)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(1,7,16,.98) 0%,rgba(1,8,18,.9) 34%,rgba(1,8,18,.48) 61%,rgba(1,7,14,.3) 100%),linear-gradient(0deg,rgba(2,8,16,.92),transparent 42%)}
+.header-inner{position:relative;z-index:2;max-width:1420px;margin:auto;padding:18px 28px 44px}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 0 24px;border-bottom:1px solid rgba(255,255,255,.12)}
+.logo{width:250px;height:62px;object-fit:contain;object-position:left center;filter:drop-shadow(0 4px 18px rgba(0,0,0,.4));transition:opacity .3s}
+.nav-links{display:flex;gap:28px;align-items:center;margin-left:auto;margin-right:20px;color:#d9e2ee;font-size:13px;font-weight:700}
+.nav-links span{opacity:.85}.nav-links .active{color:#fff;position:relative}.nav-links .active:after{content:"";position:absolute;left:0;right:0;bottom:-11px;height:3px;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.publication-control{display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.18);background:rgba(3,12,24,.66);backdrop-filter:blur(12px);border-radius:12px;padding:5px 8px 5px 12px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.publication-control label{font-size:12px;font-weight:800;color:#b9c4d3;margin:0}.publication-control select{width:155px;border:0;background:transparent;color:#fff;font-size:13px;font-weight:800;padding:8px 4px;outline:none;cursor:pointer}.publication-control option{background:#071321;color:#fff}
+.hero-copy{max-width:760px;padding-top:64px}.eyebrow{color:var(--accent);font-size:12px;font-weight:900;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;text-shadow:0 0 18px rgba(255,36,56,.2)}
+h1{font-size:54px;line-height:1.03;letter-spacing:-1.8px;margin:0 0 12px;font-weight:850}.subtitle{font-size:18px;line-height:1.5;color:#d4deea;margin:0;max-width:700px}
+.hero-tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}.hero-tags span{font-size:11px;letter-spacing:1.2px;font-weight:800;color:#dbe5f1;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.055);padding:8px 11px;border-radius:999px;backdrop-filter:blur(6px)}
+.workflow{display:grid;grid-template-columns:repeat(4,1fr);max-width:980px;margin-top:42px;gap:14px}.workflow-item{display:flex;gap:11px;align-items:center}.workflow-icon{width:42px;height:42px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(4,15,29,.68);display:grid;place-items:center;color:var(--accent);font-size:20px;box-shadow:inset 0 0 20px rgba(255,255,255,.025)}.workflow-item strong{display:block;font-size:12px}.workflow-item small{display:block;color:#91a0b2;font-size:10px;margin-top:3px}
+.container{position:relative;z-index:3;max-width:1420px;margin:-78px auto 60px;padding:0 28px}.grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(420px,.92fr);gap:22px;align-items:start}
+.card{background:linear-gradient(145deg,rgba(9,25,43,.96),rgba(4,14,26,.94));border:1px solid var(--line);border-radius:18px;padding:25px;box-shadow:0 25px 70px rgba(0,0,0,.34);backdrop-filter:blur(18px)}.card h2{margin:0 0 19px;font-size:18px}.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.card-head h2{margin:0}.hint{font-size:11px;color:#7f8da0}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}.field{min-width:0}.field.full{grid-column:1/-1}label{display:block;font-size:11px;font-weight:800;color:#d5deea;margin:0 0 7px;letter-spacing:.15px}.optional{font-weight:500;color:#77869a}
+input,textarea,.form-grid select{width:100%;padding:12px 13px;border:1px solid rgba(255,255,255,.13);border-radius:10px;font-size:13px;color:#f3f6fa;background:var(--input);outline:none;transition:border .2s,box-shadow .2s,background .2s}input::placeholder,textarea::placeholder{color:#718096}input:focus,textarea:focus,.form-grid select:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 13%,transparent);background:rgba(255,255,255,.075)}textarea{min-height:86px;resize:vertical}.form-grid select{appearance:auto}
+.actions{display:flex;gap:10px;margin-top:17px}.generate-btn{flex:1;border:0;border-radius:10px;padding:13px 18px;font-size:13px;font-weight:900;cursor:pointer;color:#fff;background:linear-gradient(100deg,var(--accent),var(--accent2));box-shadow:0 10px 26px color-mix(in srgb,var(--accent) 20%,transparent);transition:transform .2s,filter .2s}.generate-btn:hover{transform:translateY(-2px);filter:brightness(1.06)}.generate-btn:disabled{opacity:.65;cursor:wait;transform:none}.clear-btn,.secondary-btn{border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.045);color:#dce5ef;border-radius:10px;padding:12px 18px;font-size:13px;font-weight:800;cursor:pointer;transition:transform .2s,background .2s}.clear-btn:hover,.secondary-btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.09)}
+.output-placeholder{text-align:center;color:#8795a7;line-height:1.7;padding:90px 25px}.output-placeholder strong{color:#e9eef5;font-size:16px}.loading{text-align:center;padding:50px 20px}.spinner{display:inline-block;width:16px;height:16px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;vertical-align:-3px;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.research-status{margin:0 0 20px;padding:16px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.035)}.research-title{font-size:13px;font-weight:850;display:flex;align-items:center;gap:9px;margin-bottom:11px}.research-title.complete{color:#64d69a}.research-title.error{color:#ff8b8b}.pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 1.1s infinite}.research-steps{display:grid;gap:6px}.research-step{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;color:#8391a3;opacity:.35;transition:.35s}.research-step.active{opacity:1;color:#dce5ef;background:rgba(255,255,255,.045)}.research-icon{width:23px;text-align:center;color:var(--accent)}@keyframes pulse{50%{transform:scale(1.35);opacity:.55}}
+.summary{background:linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.025));border-left:3px solid var(--accent);padding:15px;border-radius:9px;margin-bottom:20px;line-height:1.6;font-size:13px;color:#c6d0dc}.summary strong{color:#fff}.question{border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:15px;margin-bottom:11px;background:rgba(255,255,255,.025);transition:transform .2s,border .2s}.question:hover{transform:translateX(3px);border-color:color-mix(in srgb,var(--accent) 38%,rgba(255,255,255,.1))}.question-number{color:var(--accent);font-size:10px;font-weight:900;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px}.question-text{font-size:14px;line-height:1.58;font-weight:650;color:#edf2f7}.question-angle{margin-top:8px;color:#8492a4;font-size:11px}.sources{margin-top:22px}.sources h3{font-size:14px}.source{padding:9px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:11px;color:#9ca9b8}.source a{color:#70b6ff;text-decoration:none;word-break:break-all}.error{background:rgba(255,70,70,.08);color:#ff9b9b;border:1px solid rgba(255,100,100,.22);padding:14px;border-radius:9px;line-height:1.5}.result-actions{display:flex;justify-content:center;margin:17px 0 3px}.hidden{display:none}
+.footer{max-width:1420px;margin:0 auto;padding:0 28px 35px;color:#627083;font-size:10px;display:flex;justify-content:space-between;gap:20px}.footer b{color:#9eabbc}
+@media(max-width:1050px){.nav-links{display:none}.grid{grid-template-columns:1fr}.container{margin-top:-55px}.workflow{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.header{min-height:680px}.header-inner{padding:14px 16px 35px}.nav{align-items:flex-start}.logo{width:200px;height:54px}.publication-control{flex-shrink:0}.publication-control label{display:none}.publication-control select{width:145px}.hero-copy{padding-top:45px}h1{font-size:39px;letter-spacing:-1px}.subtitle{font-size:15px}.workflow{grid-template-columns:1fr 1fr;gap:16px}.container{padding:0 14px;margin-top:-45px}.card{padding:18px;border-radius:15px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.actions{flex-direction:column}.footer{padding:0 14px 25px;display:block}.footer span{display:block;margin-top:6px}}
 </style>
-
-<style>
-  .field.full{grid-column:1/-1}
-  .select-wrap{position:relative}
-  .select-wrap select{width:100%;appearance:none;-webkit-appearance:none;padding-right:42px}
-  .select-wrap:after{content:"⌄";position:absolute;right:16px;top:50%;transform:translateY(-50%);pointer-events:none;font-size:18px;opacity:.7}
-  .field-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);z-index:2;opacity:.7}
-  .select-wrap select{padding-left:42px}
-  .research-status{margin:18px 0;padding:18px;border:1px solid rgba(20,47,88,.12);border-radius:18px;background:linear-gradient(135deg,rgba(245,248,252,.96),rgba(255,255,255,.98));box-shadow:0 10px 28px rgba(0,0,0,.05);overflow:hidden}
-  .research-title{font-weight:800;display:flex;align-items:center;gap:9px;margin-bottom:12px}
-  .research-title.complete{color:#147a4b}.research-title.error{color:#b3261e}
-  .pulse-dot{width:9px;height:9px;border-radius:50%;background:currentColor;animation:miqPulse 1.2s infinite}
-  .research-steps{display:grid;gap:8px}
-  .research-step{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:11px;opacity:.38;transform:translateX(-5px);transition:all .35s ease}
-  .research-step.active{opacity:1;transform:translateX(0);background:rgba(20,47,88,.055)}
-  .research-icon{width:25px;text-align:center;font-weight:800}
-  .spinner{display:inline-block;width:14px;height:14px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;vertical-align:-2px;animation:miqSpin .7s linear infinite}
-  .result-actions{display:flex;justify-content:center;margin:18px 0 8px}
-  .secondary-btn{border:1px solid rgba(20,47,88,.2);background:#fff;border-radius:12px;padding:11px 18px;font-weight:800;cursor:pointer;transition:transform .2s,box-shadow .2s}
-  .secondary-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
-  button:disabled{opacity:.65;cursor:wait}
-  @keyframes miqPulse{0%,100%{transform:scale(.85);opacity:.5}50%{transform:scale(1.25);opacity:1}}
-  @keyframes miqSpin{to{transform:rotate(360deg)}}
-  @media(max-width:700px){.field.full{grid-column:auto}.research-status{border-radius:14px}}
-
-  /* Publication selector + dynamic publication header */
-  .header{padding:24px 20px 30px}
-  .header-top{max-width:1180px;margin:0 auto 18px;display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
-  .publication-caption{font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.62);margin-top:5px}
-  .publication-select{width:245px}
-  .publication-select label{display:block;margin:0 0 6px;font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:rgba(255,255,255,.72)}
-  .publication-select .select-wrap{position:relative}
-  .publication-select .select-wrap select{width:100%;height:44px;padding:0 42px 0 42px;border:1px solid rgba(255,255,255,.28);border-radius:11px;background:rgba(255,255,255,.12);color:#fff;font-weight:700;font-size:14px;appearance:none;-webkit-appearance:none;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.12);backdrop-filter:blur(8px)}
-  .publication-select .select-wrap select:hover{background:rgba(255,255,255,.17);border-color:rgba(255,255,255,.42)}
-  .publication-select .select-wrap select:focus{outline:none;border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.15)}
-  .publication-select .select-wrap select option{background:#fff;color:#172033}
-  .publication-select .select-wrap:after{content:"⌄";position:absolute;right:15px;top:50%;transform:translateY(-54%);pointer-events:none;color:#fff;font-size:18px;opacity:.9}
-  .publication-select .field-icon{left:14px;top:50%;color:#fff;opacity:.85}
-  .header h1{max-width:1180px;margin:0 auto 6px;font-size:32px}
-  .header .subtitle{max-width:1180px;margin:0 auto;color:#dce8f8;font-size:15px}
-  @media(max-width:600px){.header-top{align-items:stretch;flex-direction:column;gap:14px}.publication-select{width:100%}.header h1{font-size:25px}}
-</style>
-
 </head>
 <body>
-<header class="header"><div class="header-inner">
-  <div class="header-top">
-    <div>
-      <div class="logo-text" id="brandName">MOTORINDIA</div>
-      <div class="publication-caption">Publication voice</div>
+<header class="header" id="hero">
+  <div class="hero-bg" id="heroBg"></div><div class="hero-overlay"></div>
+  <div class="header-inner">
+    <div class="nav">
+      <img class="logo" id="brandLogo" src="assets/motorindia-logo.png" alt="MotorIndia">
+      <div class="nav-links"><span class="active">Interview Questions Generator</span><span>About</span><span>How it Works</span></div>
+      <div class="publication-control"><label for="publication">Publication</label><select id="publication" aria-label="Select publication"><option value="MotorIndia">MotorIndia</option><option value="Textile Magazine">Textile Magazine</option></select></div>
     </div>
-    <div class="publication-select">
-      <label for="publication">Publication</label>
-      <div class="select-wrap">
-        <span class="field-icon" aria-hidden="true">▣</span>
-        <select id="publication" aria-label="Select publication">
-          <option value="MotorIndia">MotorIndia</option>
-          <option value="Textile Magazine">Textile Magazine</option>
-        </select>
+    <div class="hero-copy">
+      <div class="eyebrow" id="eyebrow">INSIGHTS. IDEAS. IMPACT.</div>
+      <h1 id="pageTitle">Interview Questions Generator</h1>
+      <p class="subtitle" id="pageSubtitle">Research-led interview questions for automotive &amp; mobility journalism</p>
+      <div class="hero-tags" id="heroTags"><span>AUTOMOTIVE</span><span>COMMERCIAL VEHICLES</span><span>MOBILITY</span><span>TECHNOLOGY</span><span>SUSTAINABILITY</span></div>
+      <div class="workflow">
+        <div class="workflow-item"><div class="workflow-icon">⌕</div><div><strong>Deep Research</strong><small>From your inputs</small></div></div>
+        <div class="workflow-item"><div class="workflow-icon">◎</div><div><strong>Industry Focus</strong><small>Question angles</small></div></div>
+        <div class="workflow-item"><div class="workflow-icon">▤</div><div><strong>10 Tailored</strong><small>Interview questions</small></div></div>
+        <div class="workflow-item"><div class="workflow-icon">ϟ</div><div><strong>Save Time</strong><small>Be interview ready</small></div></div>
       </div>
     </div>
   </div>
-  <h1 id="pageTitle">Interview Questions Generator</h1>
-  <p class="subtitle" id="pageSubtitle">Research-led interview questions for automotive &amp; mobility journalism</p>
-</div></header>
-<div class="container"><div class="grid">
-<div class="card">
-<h2>Interview Details</h2>
-<div class="field"><label>Person Being Interviewed *</label><input id="name" placeholder="Full name"></div>
-<div class="field"><label>Designation *</label><input id="designation" placeholder="e.g. CEO, Managing Director"></div>
-<div class="field"><label>Company Name *</label><input id="company" placeholder="Company name"></div>
-<div class="field"><label>Event / Exhibition Name *</label><input id="event" placeholder="e.g. IAA Transportation 2026"></div>
-<div class="field"><label>Event Theme</label><input id="theme" placeholder="Event theme or key focus"></div>
-<div class="field"><label>Company Website <span class="optional">(optional)</span></label><input id="companyUrl" type="url" placeholder="https://..."></div>
-<div class="field"><label>Executive / Profile URL <span class="optional">(optional)</span></label><input id="profileUrl" type="url" placeholder="https://..."></div>
-<div class="field"><label>Event Website <span class="optional">(optional)</span></label><input id="eventUrl" type="url" placeholder="https://..."></div>
-<div class="field"><label>Interview Angle</label>
-<select id="angle">
-<option value="">General interview</option><option>Company strategy</option><option>Products &amp; technology</option><option>Electric vehicles</option><option>Commercial vehicles</option><option>Bus &amp; public transport</option><option>Aftermarket</option><option>Connected mobility</option><option>Fleet technology</option><option>India market</option><option>Global expansion</option><option>Sustainability</option><option>Manufacturing</option>
-</select></div>
-<div class="field"><label>Custom Focus <span class="optional">(optional)</span></label><textarea id="customFocus" placeholder="Anything specific you want the interview to cover?"></textarea></div>
-<button type="button" class="generate-btn" id="generateBtn" onclick="generateQuestions(false)">Research &amp; Generate Questions</button>
-</div>
-<div class="card">
-<div class="top-actions"><button class="clear-btn" onclick="clearResults()">Clear</button><button class="clear-btn hidden" id="copyBtn" onclick="copyAll()">Copy All</button></div>
-<div id="output"><div class="output-placeholder"><strong>Your interview questions will appear here.</strong><br><br>Enter the interviewee and event details on the left.<br>Adding company, profile and event URLs will allow the tool to use those public pages for research.</div></div>
-</div>
-</div></div>
+</header>
+
+<main class="container"><div class="grid">
+  <section class="card">
+    <div class="card-head"><h2>Interview Details</h2><span class="hint">Required fields marked *</span></div>
+    <div class="form-grid">
+      <div class="field"><label>Person Being Interviewed *</label><input id="name" placeholder="Full name"></div>
+      <div class="field"><label>Designation *</label><input id="designation" placeholder="e.g. CEO, Managing Director"></div>
+      <div class="field"><label>Company Name *</label><input id="company" placeholder="Company name"></div>
+      <div class="field"><label>Company Website <span class="optional">(optional)</span></label><input id="companyUrl" type="url" placeholder="https://..."></div>
+      <div class="field"><label>Event / Exhibition Name *</label><input id="event" placeholder="e.g. IAA Transportation 2026"></div>
+      <div class="field"><label>Event Theme <span class="optional">(optional)</span></label><input id="theme" placeholder="Event theme or key focus"></div>
+      <div class="field"><label>Executive / Profile URL <span class="optional">(optional)</span></label><input id="profileUrl" type="url" placeholder="https://..."></div>
+      <div class="field"><label>Event Website <span class="optional">(optional)</span></label><input id="eventUrl" type="url" placeholder="https://..."></div>
+      <div class="field"><label>Interview Angle</label><select id="angle"><option value="">General interview</option><option>Company strategy</option><option>Products &amp; technology</option><option>Electric vehicles</option><option>Commercial vehicles</option><option>Bus &amp; public transport</option><option>Aftermarket</option><option>Connected mobility</option><option>Fleet technology</option><option>India market</option><option>Global expansion</option><option>Sustainability</option><option>Manufacturing</option></select></div>
+      <div class="field"><label>Custom Focus <span class="optional">(optional)</span></label><textarea id="customFocus" placeholder="Anything specific you want the interview to cover?"></textarea></div>
+      <div class="field full" style="display:none"><input id="seed" aria-hidden="true"></div>
+    </div>
+    <div class="actions"><button type="button" class="generate-btn" id="generateBtn" onclick="generateQuestions(false)">Generate Questions</button><button type="button" class="clear-btn" onclick="clearAll()">Clear All</button></div>
+  </section>
+
+  <section class="card" id="resultsCard">
+    <div class="card-head"><h2>Interview Questions</h2><span class="hint" id="resultHint">Your results will appear here</span></div>
+    <div id="researchStatus" class="research-status" hidden></div>
+    <div id="output"><div class="output-placeholder"><strong>Turn interview details into sharper questions.</strong><br><br>Enter the interviewee, company and event details.<br>Adding public company, profile or event URLs gives the tool pages it can review.</div></div>
+    <div class="result-actions" id="regenerateWrap"><button type="button" class="secondary-btn" onclick="regenerateQuestions()">↻ Regenerate Questions</button></div>
+  </section>
+</div></main>
+<footer class="footer"><span><b id="footerBrand">MotorIndia</b> Interview Questions Generator</span><span>Research-led editorial workflow</span></footer>
+
 <script>
 const API_ENDPOINT = "https://script.google.com/macros/s/AKfycbxmB0xLDyPMiUfYDKxpMrv0eUl4ThaVGX8c5YIDPTR9p3aUg2aImtZhdeKW3Cw20urHqw/exec";
 
-
-function requestJsonp(payload){
-  return new Promise((resolve,reject)=>{
-    const callbackName="miq_callback_"+Date.now()+"_"+Math.floor(Math.random()*100000);
-    const script=document.createElement("script");
-    const params=new URLSearchParams();
-    Object.keys(payload).forEach(key=>{
-      if(payload[key] !== undefined && payload[key] !== null && payload[key] !== ""){
-        params.set(key,String(payload[key]));
-      }
-    });
-    params.set("callback",callbackName);
-
-    window[callbackName]=(data)=>{
-      cleanup();
-      resolve(data);
-    };
-
-    script.onerror=()=>{
-      cleanup();
-      reject(new Error("Could not connect to the interview generator backend."));
-    };
-
-    function cleanup(){
-      delete window[callbackName];
-      if(script.parentNode) script.parentNode.removeChild(script);
-    }
-
-    script.src=API_ENDPOINT+"?"+params.toString();
-    document.body.appendChild(script);
-
-    setTimeout(()=>{
-      if(window[callbackName]){
-        cleanup();
-        reject(new Error("The backend request timed out. Please try again."));
-      }
-    },30000);
-  });
-}
-
-const publicationProfiles = {
-  "MotorIndia": {
-    brand: "MOTORINDIA",
-    title: "Interview Questions Generator",
-    subtitle: "Research-led interview questions for automotive & mobility journalism",
-    docTitle: "MotorIndia Interview Questions Generator"
-  },
-  "Textile Magazine": {
-    brand: "TEXTILE MAGAZINE",
-    title: "Interview Questions Generator",
-    subtitle: "Research-led interview questions for textile & apparel journalism",
-    docTitle: "Textile Magazine Interview Questions Generator"
-  }
+const publicationProfiles={
+  "MotorIndia":{brand:"MOTORINDIA",display:"MotorIndia",logo:"assets/motorindia-logo.png",hero:"assets/motorindia-hero.png",eyebrow:"INSIGHTS. IDEAS. IMPACT.",subtitle:"Research-led interview questions for automotive & mobility journalism",tags:["AUTOMOTIVE","COMMERCIAL VEHICLES","MOBILITY","TECHNOLOGY","SUSTAINABILITY"],accent:"#ff2438",accent2:"#ff5261",docTitle:"MotorIndia Interview Questions Generator"},
+  "Textile Magazine":{brand:"TEXTILE MAGAZINE",display:"Textile Magazine",logo:"assets/textile-magazine-logo.png",hero:"assets/textile-hero.png",eyebrow:"PEOPLE. PROGRESS. POSSIBILITIES.",subtitle:"Research-led interview questions for textile & apparel journalism",tags:["TEXTILES","APPAREL","FIBRES","SUSTAINABILITY","INNOVATION"],accent:"#158cff",accent2:"#48b5ff",docTitle:"Textile Magazine Interview Questions Generator"}
 };
 
-function updatePublicationHeader(){
-  const publication = document.getElementById("publication")?.value || "MotorIndia";
-  const profile = publicationProfiles[publication] || publicationProfiles.MotorIndia;
-  document.getElementById("brandName").textContent = profile.brand;
-  document.getElementById("pageTitle").textContent = profile.title;
-  document.getElementById("pageSubtitle").textContent = profile.subtitle;
-  document.title = profile.docTitle;
+function applyPublicationTheme(){
+  const publication=document.getElementById("publication").value||"MotorIndia";
+  const p=publicationProfiles[publication]||publicationProfiles.MotorIndia;
+  document.body.classList.toggle("textile",publication==="Textile Magazine");
+  document.documentElement.style.setProperty("--accent",p.accent);
+  document.documentElement.style.setProperty("--accent2",p.accent2);
+  document.getElementById("brandLogo").src=p.logo;
+  document.getElementById("brandLogo").alt=p.display;
+  document.getElementById("heroBg").style.backgroundImage=`url("${p.hero}")`;
+  document.getElementById("eyebrow").textContent=p.eyebrow;
+  document.getElementById("pageTitle").textContent="Interview Questions Generator";
+  document.getElementById("pageSubtitle").textContent=p.subtitle;
+  document.getElementById("heroTags").innerHTML=p.tags.map(t=>`<span>${t}</span>`).join("");
+  document.getElementById("footerBrand").textContent=p.display;
+  document.title=p.docTitle;
+  const angle=document.getElementById("angle");
+  const current=angle.value;
+  const textileAngles=["","Company strategy","Products & technology","Textile machinery","Fibres & materials","Apparel & fashion","Sustainability","Digitalisation","Exports","India market","Global expansion","Manufacturing","Technical textiles"];
+  const motorAngles=["","Company strategy","Products & technology","Electric vehicles","Commercial vehicles","Bus & public transport","Aftermarket","Connected mobility","Fleet technology","India market","Global expansion","Sustainability","Manufacturing"];
+  const values=publication==="Textile Magazine"?textileAngles:motorAngles;
+  angle.innerHTML=values.map(v=>`<option value="${escapeHtml(v)}">${v||"General interview"}</option>`).join("");
+  if(values.includes(current)) angle.value=current;
 }
+document.getElementById("publication").addEventListener("change",applyPublicationTheme);
+applyPublicationTheme();
 
-document.getElementById("publication")?.addEventListener("change", updatePublicationHeader);
-updatePublicationHeader();
+function requestJsonp(payload){return new Promise((resolve,reject)=>{const callbackName="miq_callback_"+Date.now()+"_"+Math.floor(Math.random()*100000);const script=document.createElement("script");const params=new URLSearchParams();Object.keys(payload).forEach(key=>{if(payload[key]!==undefined&&payload[key]!==null&&payload[key]!=="")params.set(key,String(payload[key]));});params.set("callback",callbackName);window[callbackName]=data=>{cleanup();resolve(data)};script.onerror=()=>{cleanup();reject(new Error("Could not connect to the interview generator backend."))};function cleanup(){delete window[callbackName];if(script.parentNode)script.parentNode.removeChild(script)}script.src=API_ENDPOINT+"?"+params.toString();document.body.appendChild(script);setTimeout(()=>{if(window[callbackName]){cleanup();reject(new Error("The backend request timed out. Please try again."))}},30000)})}
 
+function val(id){const el=document.getElementById(id);return el?el.value.trim():""}
 async function generateQuestions(regenerate=false){
-  const button = document.getElementById("generateBtn") || document.querySelector('button[type="submit"]');
-  const originalButtonText = button ? button.innerHTML : "";
-
-  const get = id => {
-    const el = document.getElementById(id);
-    return el ? el.value.trim() : "";
-  };
-
-  const payload = {
-    publication: get("publication") || "MotorIndia",
-    name: get("name"),
-    designation: get("designation"),
-    company: get("company"),
-    event: get("event"),
-    theme: get("theme"),
-    companyUrl: get("companyUrl"),
-    profileUrl: get("profileUrl"),
-    eventUrl: get("eventUrl"),
-    angle: get("angle"),
-    customFocus: get("customFocus"),
-    regenerate: regenerate ? "true" : "false",
-    seed: regenerate ? String(Date.now()) : ""
-  };
-
-  if(!payload.name || !payload.designation || !payload.company || !payload.event){
-    alert("Please fill in Name, Designation, Company and Event.");
-    return;
-  }
-
-  setLoadingState(true, regenerate);
-
-  try{
-    showResearchSteps();
-
-    const data = await requestJsonp(payload);
-
-    if(!data || !data.success){
-      throw new Error((data && data.error) || "The generator returned an error.");
-    }
-
-    displayResults(data.result);
-    showResearchComplete();
-    document.getElementById("results")?.scrollIntoView({behavior:"smooth", block:"start"});
-  }catch(error){
-    showResearchError(error.message || "Something went wrong.");
-    alert(error.message || "Something went wrong. Please try again.");
-  }finally{
-    setLoadingState(false, regenerate);
-  }
+  const button=document.getElementById("generateBtn");
+  const payload={publication:val("publication")||"MotorIndia",name:val("name"),designation:val("designation"),company:val("company"),event:val("event"),theme:val("theme"),companyUrl:val("companyUrl"),profileUrl:val("profileUrl"),eventUrl:val("eventUrl"),angle:val("angle"),customFocus:val("customFocus"),regenerate:regenerate?"true":"false",seed:regenerate?String(Date.now()):""};
+  if(!payload.name||!payload.designation||!payload.company||!payload.event){alert("Please fill in Name, Designation, Company and Event.");return}
+  setLoadingState(true,regenerate);showResearchSteps();
+  try{const data=await requestJsonp(payload);if(!data||!data.success)throw new Error((data&&data.error)||"The generator returned an error.");displayResults(data.result);showResearchComplete();setTimeout(()=>document.getElementById("resultsCard").scrollIntoView({behavior:"smooth",block:"start"}),80)}catch(error){showResearchError(error.message||"Something went wrong.");alert(error.message||"Something went wrong. Please try again.")}finally{setLoadingState(false,regenerate)}
 }
-function displayResults(result){
-const output=document.getElementById("output");let html="";
-if(result.researchSummary)html+='<div class="summary"><strong>Research Summary</strong><br><br>'+escapeHtml(result.researchSummary)+'</div>';
-html+='<h2 style="margin-bottom:16px;">Interview Questions</h2>';
-if(!result.questions||!result.questions.length)html+='<div class="error">No questions were generated.</div>';
-else result.questions.forEach((item,index)=>{html+='<div class="question"><div class="question-number">Question '+(index+1)+'</div><div class="question-text">'+escapeHtml(item.question)+'</div>'+(item.angle?'<div class="question-angle">Interview angle: '+escapeHtml(item.angle)+'</div>':"")+'</div>'});
-if(result.sources&&result.sources.length){html+='<div class="sources"><h3>Research Sources</h3>';result.sources.forEach(source=>{html+='<div class="source"><strong>'+escapeHtml(source.title)+'</strong><br><a href="'+escapeAttribute(source.url)+'" target="_blank" rel="noopener noreferrer">'+escapeHtml(source.url)+'</a></div>'});html+='</div>'}
-output.innerHTML=html;
-}
-function clearResults(){document.getElementById("output").innerHTML='<div class="output-placeholder"><strong>Your interview questions will appear here.</strong><br><br>Enter the interviewee and event details on the left.<br>Adding company, profile and event URLs will allow the tool to use those public pages for research.</div>';document.getElementById("copyBtn").classList.add("hidden")}
-async function copyAll(){
-const questions=document.querySelectorAll(".question");if(!questions.length)return;let text=(document.getElementById("publication")?.value || "MotorIndia").toUpperCase()+" INTERVIEW QUESTIONS\n\n";
-questions.forEach((q,index)=>{const t=q.querySelector(".question-text");if(t)text+=(index+1)+". "+t.innerText.trim()+"\n\n"});
-try{await navigator.clipboard.writeText(text);alert("Questions copied.")}catch(e){alert("Unable to copy automatically. Please select and copy the questions.")}
-}
-function escapeHtml(value){if(value===null||value===undefined)return "";return String(value).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
-function escapeAttribute(value){return escapeHtml(value)}
-
-function setLoadingState(loading, regenerate){
-  const button = document.getElementById("generateBtn") || document.querySelector('button[type="submit"]');
-  if(button){
-    button.disabled = loading;
-    button.innerHTML = loading
-      ? '<span class="spinner"></span> ' + (regenerate ? 'Generating a fresh set…' : 'Researching & generating…')
-      : (regenerate ? '↻ Regenerate Questions' : 'Generate Questions');
-  }
-  const panel=document.getElementById("researchStatus");
-  if(panel) panel.hidden=!loading;
-}
-
-function showResearchSteps(){
-  const panel=document.getElementById("researchStatus");
-  if(!panel) return;
-  panel.hidden=false;
-  const steps=[
-    ["step1","⌕","Checking supplied sources"],
-    ["step2","▣","Reviewing company information"],
-    ["step3","◉","Reviewing executive information"],
-    ["step4","◆","Building interview angles"],
-    ["step5","✓","Preparing your questions"]
-  ];
-  panel.innerHTML='<div class="research-title"><span class="pulse-dot"></span> Research & question workflow</div>'+
-    '<div class="research-steps">'+steps.map((s,i)=>`<div class="research-step" id="${s[0]}"><span class="research-icon">${s[1]}</span><span>${s[2]}</span></div>`).join("")+'</div>';
-
-  steps.forEach((s,i)=>{
-    setTimeout(()=>{
-      const el=document.getElementById(s[0]);
-      if(el) el.classList.add("active");
-    }, i*550);
-  });
-}
-
-function showResearchComplete(){
-  const panel=document.getElementById("researchStatus");
-  if(!panel) return;
-  panel.innerHTML='<div class="research-title complete"><span>✓</span> Questions ready</div>';
-  setTimeout(()=>{ panel.hidden=true; },1800);
-}
-
-function showResearchError(message){
-  const panel=document.getElementById("researchStatus");
-  if(!panel) return;
-  panel.hidden=false;
-  panel.innerHTML='<div class="research-title error"><span>!</span> '+escapeHtml(message)+'</div>';
-}
-
-function regenerateQuestions(){
-  generateQuestions(true);
-}
-
-
+function displayResults(result){const output=document.getElementById("output");let html="";if(result.researchSummary)html+='<div class="summary"><strong>Research Summary</strong><br><br>'+escapeHtml(result.researchSummary)+"</div>";if(!result.questions||!result.questions.length)html+='<div class="error">No questions were generated.</div>';else result.questions.forEach((item,index)=>{html+='<div class="question"><div class="question-number">Question '+(index+1)+"</div><div class="question-text">"+escapeHtml(item.question)+"</div>"+(item.angle?'<div class="question-angle">Interview angle: '+escapeHtml(item.angle)+"</div>":"")+"</div>"});if(result.sources&&result.sources.length){html+='<div class="sources"><h3>Research Sources</h3>';result.sources.forEach(source=>{html+='<div class="source"><strong>'+escapeHtml(source.title)+"</strong><br><a href='"+escapeAttribute(source.url)+"' target='_blank' rel='noopener noreferrer'>"+escapeHtml(source.url)+"</a></div>"});html+="</div>"}output.innerHTML=html;document.getElementById("resultHint").textContent=(result.questions&&result.questions.length?result.questions.length:"0")+" tailored questions"}
+function clearAll(){["name","designation","company","companyUrl","event","theme","profileUrl","eventUrl","customFocus"].forEach(id=>{const e=document.getElementById(id);if(e)e.value=""});document.getElementById("angle").selectedIndex=0;document.getElementById("output").innerHTML='<div class="output-placeholder"><strong>Turn interview details into sharper questions.</strong><br><br>Enter the interviewee, company and event details.<br>Adding public company, profile or event URLs gives the tool pages it can review.</div>';document.getElementById("resultHint").textContent="Your results will appear here"}
+function copyAll(){const qs=document.querySelectorAll(".question");if(!qs.length)return;let text=(val("publication")||"MotorIndia").toUpperCase()+" INTERVIEW QUESTIONS\n\n";qs.forEach((q,i)=>{const t=q.querySelector(".question-text");if(t)text+=(i+1)+". "+t.innerText.trim()+"\n\n"});navigator.clipboard.writeText(text).then(()=>alert("Questions copied.")).catch(()=>alert("Unable to copy automatically. Please select and copy the questions."))}
+function setLoadingState(loading,regenerate){const b=document.getElementById("generateBtn");b.disabled=loading;b.innerHTML=loading?'<span class="spinner"></span> '+(regenerate?"Generating a fresh set…":"Researching & generating…"):("Generate Questions")}
+function showResearchSteps(){const panel=document.getElementById("researchStatus");panel.hidden=false;const steps=[["step1","⌕","Checking supplied sources"],["step2","▣","Reviewing company information"],["step3","◉","Reviewing executive information"],["step4","◆","Building interview angles"],["step5","✓","Preparing your questions"]];panel.innerHTML='<div class="research-title"><span class="pulse-dot"></span> Research & question workflow</div><div class="research-steps">'+steps.map(s=>`<div class="research-step" id="${s[0]}"><span class="research-icon">${s[1]}</span><span>${s[2]}</span></div>`).join("")+"</div>";steps.forEach((s,i)=>setTimeout(()=>document.getElementById(s[0])?.classList.add("active"),i*500))}
+function showResearchComplete(){const panel=document.getElementById("researchStatus");panel.innerHTML='<div class="research-title complete"><span>✓</span> Questions ready</div>';setTimeout(()=>panel.hidden=true,1600)}
+function showResearchError(message){const panel=document.getElementById("researchStatus");panel.hidden=false;panel.innerHTML='<div class="research-title error"><span>!</span> '+escapeHtml(message)+"</div>"}
+function regenerateQuestions(){generateQuestions(true)}
+function escapeHtml(v){if(v===null||v===undefined)return"";return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
+function escapeAttribute(v){return escapeHtml(v)}
 </script>
-<div id="researchStatus" class="research-status" hidden></div>
-<div class="result-actions" id="regenerateWrap"><button type="button" class="secondary-btn" onclick="regenerateQuestions()">↻ Regenerate Questions</button></div>
 </body>
 </html>
