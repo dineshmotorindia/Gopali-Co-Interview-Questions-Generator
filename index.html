@@ -94,7 +94,7 @@ button{border:0;border-radius:9px;padding:13px 18px;font-size:14px;font-weight:7
 <option value="">General interview</option><option>Company strategy</option><option>Products &amp; technology</option><option>Electric vehicles</option><option>Commercial vehicles</option><option>Bus &amp; public transport</option><option>Aftermarket</option><option>Connected mobility</option><option>Fleet technology</option><option>India market</option><option>Global expansion</option><option>Sustainability</option><option>Manufacturing</option>
 </select></div>
 <div class="field"><label>Custom Focus <span class="optional">(optional)</span></label><textarea id="customFocus" placeholder="Anything specific you want the interview to cover?"></textarea></div>
-<button class="generate-btn" id="generateBtn" onclick="generateQuestions()">Research &amp; Generate Questions</button>
+<button type="button" class="generate-btn" id="generateBtn" onclick="generateQuestions(false)">Research &amp; Generate Questions</button>
 </div>
 <div class="card">
 <div class="top-actions"><button class="clear-btn" onclick="clearResults()">Clear</button><button class="clear-btn hidden" id="copyBtn" onclick="copyAll()">Copy All</button></div>
@@ -185,7 +185,7 @@ async function generateQuestions(regenerate=false){
       throw new Error((data && data.error) || "The generator returned an error.");
     }
 
-    renderResult(data.result);
+    displayResults(data.result);
     showResearchComplete();
     document.getElementById("results")?.scrollIntoView({behavior:"smooth", block:"start"});
   }catch(error){
@@ -194,18 +194,6 @@ async function generateQuestions(regenerate=false){
   }finally{
     setLoadingState(false, regenerate);
   }
-}
-const name=document.getElementById("name").value.trim(),designation=document.getElementById("designation").value.trim(),company=document.getElementById("company").value.trim(),event=document.getElementById("event").value.trim();
-if(!name||!designation||!company||!event){alert("Please enter the Person Name, Designation, Company and Event.");return}
-if(!API_ENDPOINT||API_ENDPOINT.includes("PASTE_YOUR")){alert("Please add your Google Apps Script Web App URL in the API_ENDPOINT line.");return}
-const btn=document.getElementById("generateBtn"),output=document.getElementById("output"),copyBtn=document.getElementById("copyBtn");
-btn.disabled=true;btn.textContent="Researching & Generating...";copyBtn.classList.add("hidden");
-output.innerHTML='<div class="loading"><div class="spinner"></div><strong>Researching interview details...</strong><br><br>Building targeted questions.</div>';
-const payload={name,designation,company,event,theme:document.getElementById("theme").value.trim(),companyUrl:document.getElementById("companyUrl").value.trim(),profileUrl:document.getElementById("profileUrl").value.trim(),eventUrl:document.getElementById("eventUrl").value.trim(),angle:document.getElementById("angle").value,customFocus:document.getElementById("customFocus").value.trim()};
-try{
-const data = await requestJsonp(payload);if(!data.success)throw new Error(data.error||"Unable to generate questions.");displayResults(data.result);copyBtn.classList.remove("hidden");
-}catch(error){output.innerHTML='<div class="error"><strong>Could not generate questions.</strong><br><br>'+escapeHtml(error.message)+'</div>'}
-btn.disabled=false;btn.textContent="Research & Generate Questions";
 }
 function displayResults(result){
 const output=document.getElementById("output");let html="";
@@ -284,17 +272,8 @@ function regenerateQuestions(){
 }
 
 
-document.addEventListener("DOMContentLoaded",()=>{
-  const form=document.querySelector("form");
-  if(form){
-    form.addEventListener("submit",e=>{
-      e.preventDefault();
-      generateQuestions(false);
-    });
-  }
-});
-
 </script>
 <div id="researchStatus" class="research-status" hidden></div>
+<div class="result-actions" id="regenerateWrap"><button type="button" class="secondary-btn" onclick="regenerateQuestions()">↻ Regenerate Questions</button></div>
 </body>
 </html>
