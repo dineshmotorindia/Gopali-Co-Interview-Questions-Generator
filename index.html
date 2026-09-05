@@ -2,607 +2,433 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#07111f">
 <title>MotorIndia Interview Questions Generator</title>
-<meta name="description" content="Generate professional, role-specific interview questions for automotive, mobility and textile industry interviews.">
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
+*{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --accent:#e31e24;
-  --accent2:#ff4b4f;
-  --bg:#080b10;
-  --panel:#10151d;
-  --panel2:#151b24;
-  --border:#28313d;
-  --text:#f4f6f8;
-  --muted:#929ba8;
-  --green:#38d39f;
-  --hero:url('https://dineshmotorindia.github.io/Gopali-Co-Interview-Questions-Generator/motorindia-hero.png');
+  --bg:#050b14;
+  --panel:#0b1625;
+  --panel2:#0f1d2e;
+  --line:#203247;
+  --text:#f4f7fb;
+  --muted:#91a3b8;
+  --accent:#e3212b;
+  --accent2:#ff4650;
+  --blue:#2878ff;
+  --green:#20c997;
 }
-
+html{scroll-behavior:smooth}
 body{
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:Inter,Segoe UI,Arial,sans-serif;
   background:var(--bg);
   color:var(--text);
   min-height:100vh;
 }
-
-body.textile{
-  --accent:#e49b2f;
-  --accent2:#f0bd65;
-  --hero:url('https://dineshmotorindia.github.io/Gopali-Co-Interview-Questions-Generator/textile-hero.png');
-}
-
-a{
-  color:inherit;
-}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
 
 .topbar{
   height:72px;
+  border-bottom:1px solid var(--line);
+  background:#07111f;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 42px;
-  border-bottom:1px solid var(--border);
-  background:#080b10;
+  padding:0 34px;
+  position:sticky;
+  top:0;
+  z-index:50;
 }
-
 .brand{
   display:flex;
   align-items:center;
-  gap:18px;
+  gap:15px;
 }
-
 .brand img{
-  width:155px;
+  width:145px;
   max-height:48px;
   object-fit:contain;
 }
-
-.brand-divider{
-  width:1px;
-  height:32px;
-  background:var(--border);
-}
-
 .brand-title{
+  border-left:1px solid #33465c;
+  padding-left:15px;
   font-size:13px;
-  color:#aeb6c1;
+  color:#9fb0c4;
   letter-spacing:.08em;
   text-transform:uppercase;
 }
-
-.pub-select{
-  background:#11161e;
-  border:1px solid #303946;
-  color:#fff;
-  border-radius:8px;
-  padding:10px 14px;
-  font-size:13px;
-  outline:none;
+.status{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#9fb0c4;
+  font-size:12px;
 }
-
-.page{
-  max-width:1480px;
-  margin:auto;
-  padding:28px;
+.status-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:#20c997;
+  box-shadow:0 0 12px #20c997;
 }
 
 .hero{
-  min-height:280px;
-  border-radius:18px;
-  overflow:hidden;
   position:relative;
-  display:flex;
-  align-items:flex-end;
+  min-height:315px;
+  overflow:hidden;
+  border-bottom:1px solid var(--line);
+}
+.hero-bg{
+  position:absolute;
+  inset:0;
+  background-position:center;
+  background-size:cover;
+}
+.hero-overlay{
+  position:absolute;
+  inset:0;
   background:
-    linear-gradient(90deg,rgba(5,8,12,.98) 0%,rgba(5,8,12,.88) 38%,rgba(5,8,12,.3) 75%,rgba(5,8,12,.1) 100%),
-    var(--hero) center/cover no-repeat;
-  border:1px solid var(--border);
-  margin-bottom:24px;
+    linear-gradient(90deg,rgba(4,10,18,.98) 0%,rgba(4,10,18,.88) 37%,rgba(4,10,18,.32) 72%,rgba(4,10,18,.72) 100%),
+    linear-gradient(0deg,rgba(5,11,20,.85),transparent 55%);
 }
-
 .hero-content{
-  padding:42px;
-  max-width:720px;
+  position:relative;
+  max-width:1250px;
+  margin:auto;
+  padding:65px 34px 58px;
 }
-
-.eyebrow{
-  color:var(--accent2);
-  font-weight:bold;
-  font-size:12px;
+.kicker{
+  display:inline-flex;
+  padding:7px 12px;
+  border:1px solid rgba(227,33,43,.5);
+  background:rgba(227,33,43,.1);
+  color:#ff6670;
+  border-radius:5px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.12em;
   text-transform:uppercase;
-  letter-spacing:.16em;
-  margin-bottom:12px;
+  margin-bottom:17px;
 }
-
 .hero h1{
-  font-size:42px;
-  line-height:1.05;
-  margin-bottom:13px;
+  font-size:clamp(34px,5vw,62px);
+  line-height:1.02;
+  max-width:760px;
+  letter-spacing:-.04em;
 }
-
 .hero p{
-  color:#bbc2cb;
+  max-width:680px;
+  color:#b4c0cf;
   font-size:16px;
-  line-height:1.6;
-  max-width:650px;
+  line-height:1.7;
+  margin-top:18px;
 }
 
-.layout{
+.wrapper{
+  max-width:1250px;
+  margin:auto;
+  padding:30px 34px 70px;
+}
+.grid{
   display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  grid-template-columns:minmax(0,470px) minmax(0,1fr);
   gap:24px;
+  align-items:start;
 }
-
 .card{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:26px;
+  background:linear-gradient(145deg,#0b1625,#091421);
+  border:1px solid var(--line);
+  border-radius:13px;
+  overflow:hidden;
 }
-
 .card-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:15px;
-  margin-bottom:22px;
+  padding:20px 22px;
+  border-bottom:1px solid var(--line);
 }
-
 .card-head h2{
-  font-size:20px;
+  font-size:17px;
 }
-
 .card-head p{
+  margin-top:6px;
   color:var(--muted);
   font-size:12px;
-  margin-top:5px;
+  line-height:1.5;
 }
+.card-body{padding:22px}
 
-.status{
-  display:none;
-  color:var(--green);
-  font-size:12px;
-  white-space:nowrap;
-}
-
-.status.show{
-  display:block;
-}
-
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-}
-
-.field{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
-
-.field.full{
-  grid-column:1/-1;
-}
-
+.field{margin-bottom:16px}
+.field:last-child{margin-bottom:0}
 label{
-  font-size:12px;
-  color:#bfc6cf;
-  font-weight:bold;
-}
-
-.required{
-  color:var(--accent2);
-}
-
-input,
-textarea,
-select{
-  width:100%;
-  background:#0b0f15;
-  color:#f5f7fa;
-  border:1px solid #2b3440;
-  border-radius:9px;
-  padding:12px 13px;
-  font-family:inherit;
-  font-size:14px;
-  outline:none;
-  transition:.18s ease;
-}
-
-input:focus,
-textarea:focus,
-select:focus{
-  border-color:var(--accent);
-  box-shadow:0 0 0 2px rgba(227,30,36,.12);
-}
-
-textarea{
-  min-height:82px;
-  resize:vertical;
-}
-
-.help{
+  display:block;
   font-size:11px;
-  color:#69727e;
+  font-weight:700;
+  color:#b9c6d5;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  margin-bottom:7px;
+}
+.req{color:#ff5963}
+input,textarea,select{
+  width:100%;
+  color:#f5f8fc;
+  background:#07111e;
+  border:1px solid #26394f;
+  border-radius:7px;
+  outline:none;
+  padding:12px 13px;
+  transition:.18s;
+}
+input:focus,textarea:focus,select:focus{
+  border-color:#4b78a8;
+  box-shadow:0 0 0 3px rgba(40,120,255,.08);
+}
+textarea{
+  resize:vertical;
+  min-height:84px;
+  line-height:1.5;
+}
+select{
+  appearance:auto;
+}
+select option{
+  background:#0b1625;
+}
+.hint{
+  color:#718399;
+  font-size:10px;
+  margin-top:5px;
   line-height:1.4;
 }
-
-.divider{
-  height:1px;
-  background:var(--border);
-  margin:24px 0;
+.two{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
 }
-
-.section-label{
-  color:#cbd1d8;
-  font-size:11px;
-  font-weight:bold;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  margin-bottom:14px;
-}
-
 .actions{
   display:flex;
-  gap:10px;
-  margin-top:22px;
+  gap:9px;
+  margin-top:20px;
 }
-
-button{
+.btn{
   border:0;
-  cursor:pointer;
-  border-radius:9px;
-  padding:12px 18px;
-  font-family:inherit;
-  font-weight:bold;
-  font-size:13px;
+  border-radius:7px;
+  padding:12px 17px;
+  font-weight:700;
+  font-size:12px;
+  transition:.18s;
 }
-
 .btn-primary{
-  flex:1;
   background:var(--accent);
-  color:#fff;
+  color:white;
+  flex:1;
 }
-
-.btn-primary:hover{
-  filter:brightness(1.1);
+.btn-primary:hover{background:var(--accent2)}
+.btn-secondary{
+  background:#172638;
+  color:#d8e1eb;
+  border:1px solid #294056;
 }
-
-.btn-primary:disabled{
+.btn:disabled{
   opacity:.55;
   cursor:not-allowed;
 }
 
-.btn-secondary{
-  background:#1a2029;
-  color:#d9dee5;
-  border:1px solid #303946;
+.research{
+  margin-top:20px;
+  padding:14px;
+  border:1px solid #1f344a;
+  background:#081320;
+  border-radius:8px;
+}
+.research-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#b9c8d8;
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.spinner{
+  width:13px;height:13px;
+  border:2px solid #33485f;
+  border-top-color:#4d93ff;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.research-text{
+  color:#718399;
+  font-size:11px;
+  margin-top:7px;
+  line-height:1.5;
 }
 
-.results-empty{
-  min-height:460px;
+.empty{
+  min-height:380px;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
-  color:#727c88;
   padding:35px;
 }
-
-.empty-inner{
-  max-width:350px;
-}
-
 .empty-icon{
-  width:52px;
-  height:52px;
-  border:1px solid #303946;
-  border-radius:50%;
+  width:54px;height:54px;
+  border:1px solid #2a4058;
+  border-radius:12px;
   display:flex;
   align-items:center;
   justify-content:center;
-  margin:0 auto 18px;
-  color:var(--accent2);
-  font-size:21px;
+  margin:0 auto 15px;
+  color:#5d7690;
+  font-size:23px;
 }
-
-.empty-inner h3{
-  color:#cdd3da;
-  margin-bottom:8px;
-  font-size:16px;
-}
-
-.empty-inner p{
-  font-size:13px;
+.empty h3{font-size:17px}
+.empty p{
+  color:#718399;
+  font-size:12px;
   line-height:1.6;
+  max-width:360px;
+  margin:7px auto 0;
 }
 
-.results{
-  display:none;
+.results{display:none}
+.result-top{
+  padding:19px 22px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
 }
-
-.results.show{
-  display:block;
-}
-
+.result-top h2{font-size:17px}
 .result-meta{
-  background:#0b1016;
-  border:1px solid #252e39;
-  border-radius:10px;
-  padding:13px;
-  margin-bottom:17px;
+  color:#718399;
+  font-size:11px;
 }
-
-.result-person{
-  font-size:17px;
-  font-weight:bold;
-}
-
-.result-role{
-  color:#929ba7;
-  font-size:12px;
-  margin-top:4px;
-}
-
-.summary{
-  background:#0d1415;
-  border-left:3px solid var(--green);
-  border-radius:7px;
-  padding:13px 15px;
-  color:#bfc9c6;
-  font-size:12px;
-  line-height:1.6;
-  margin-bottom:18px;
-}
-
-.questions{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
+.result-body{padding:22px}
 .question{
-  background:#0b1016;
-  border:1px solid #252e39;
-  border-radius:10px;
-  padding:14px;
-  display:flex;
-  gap:13px;
+  padding:17px 0;
+  border-bottom:1px solid #1b2b3d;
 }
-
-.qnum{
-  min-width:26px;
-  height:26px;
-  border-radius:50%;
-  background:rgba(227,30,36,.13);
-  color:var(--accent2);
-  display:flex;
+.question:first-child{padding-top:0}
+.question:last-child{border-bottom:0;padding-bottom:0}
+.q-number{
+  display:inline-flex;
+  min-width:30px;
+  height:23px;
   align-items:center;
   justify-content:center;
-  font-size:11px;
-  font-weight:bold;
+  border-radius:4px;
+  background:rgba(227,33,43,.12);
+  color:#ff5963;
+  font-size:10px;
+  font-weight:800;
+  margin-bottom:9px;
 }
-
-.qtext{
-  color:#e0e4e9;
-  font-size:13px;
+.q-text{
+  font-size:15px;
   line-height:1.55;
+  color:#f1f5f9;
 }
-
+.q-note{
+  margin-top:8px;
+  color:#72849a;
+  font-size:10px;
+}
 .result-actions{
+  padding:18px 22px;
+  border-top:1px solid var(--line);
   display:flex;
   gap:9px;
-  margin-top:18px;
 }
+.result-actions .btn{flex:1}
 
-.source-list{
-  margin-top:18px;
-  padding-top:16px;
-  border-top:1px solid var(--border);
+.sources{
+  margin-top:22px;
+  border-top:1px solid var(--line);
+  padding-top:18px;
 }
-
-.source-list h4{
+.sources h3{
   font-size:11px;
   text-transform:uppercase;
-  letter-spacing:.1em;
-  color:#89939f;
-  margin-bottom:8px;
+  letter-spacing:.08em;
+  color:#9aacbf;
+  margin-bottom:10px;
 }
-
+.source-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
 .source-list a{
-  display:block;
-  color:var(--accent2);
-  font-size:11px;
+  color:#8bb9ff;
   text-decoration:none;
+  font-size:11px;
+  border:1px solid #243c56;
+  background:#091625;
+  padding:7px 9px;
+  border-radius:5px;
+  max-width:100%;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
-  margin-top:5px;
 }
+.source-list a:hover{border-color:#4c79a5}
 
 .error{
   display:none;
-  background:#241013;
-  border:1px solid #64262c;
-  color:#ffadb1;
-  border-radius:9px;
-  padding:12px 14px;
-  font-size:12px;
-  line-height:1.5;
   margin-top:15px;
-}
-
-.error.show{
-  display:block;
-}
-
-.loader{
-  display:none;
-  margin-top:18px;
-  text-align:center;
-  color:#9ca6b2;
-  font-size:12px;
-}
-
-.loader.show{
-  display:block;
-}
-
-.spinner{
-  width:22px;
-  height:22px;
-  border:2px solid #303844;
-  border-top-color:var(--accent);
-  border-radius:50%;
-  animation:spin .8s linear infinite;
-  margin:0 auto 9px;
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg);}
+  padding:12px;
+  border-radius:7px;
+  border:1px solid #5b272d;
+  background:#241014;
+  color:#ff8a91;
+  font-size:11px;
+  line-height:1.5;
 }
 
 .footer{
+  border-top:1px solid var(--line);
+  padding:22px 34px;
   text-align:center;
-  color:#555e69;
-  font-size:11px;
-  padding:25px 10px 10px;
+  color:#53667b;
+  font-size:10px;
 }
 
 @media(max-width:900px){
-
-  .topbar{
-    padding:0 18px;
-  }
-
-  .brand-title,
-  .brand-divider{
-    display:none;
-  }
-
-  .brand img{
-    width:130px;
-  }
-
-  .page{
-    padding:16px;
-  }
-
-  .layout{
-    grid-template-columns:1fr;
-  }
-
-  .hero{
-    min-height:260px;
-  }
-
-  .hero-content{
-    padding:28px 24px;
-  }
-
-  .hero h1{
-    font-size:32px;
-  }
-
-  .results-empty{
-    min-height:280px;
-  }
+  .grid{grid-template-columns:1fr}
+  .empty{min-height:250px}
 }
-
 @media(max-width:600px){
-
   .topbar{
     height:auto;
     min-height:64px;
-    gap:10px;
-    padding:10px 13px;
+    padding:11px 15px;
   }
-
-  .brand{
-    min-width:0;
-  }
-
-  .brand img{
-    width:115px;
-  }
-
-  .pub-select{
-    max-width:155px;
-    padding:9px 8px;
-    font-size:11px;
-  }
-
-  .page{
-    padding:10px;
-  }
-
-  .hero{
-    min-height:330px;
-    margin-bottom:14px;
-    background:
-      linear-gradient(0deg,rgba(5,8,12,.98) 0%,rgba(5,8,12,.82) 48%,rgba(5,8,12,.25) 100%),
-      var(--hero) center/cover no-repeat;
-  }
-
-  .hero-content{
-    padding:23px 19px;
-  }
-
-  .hero h1{
-    font-size:29px;
-  }
-
-  .hero p{
-    font-size:13px;
-  }
-
-  .card{
-    padding:18px 15px;
-    border-radius:13px;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-    gap:13px;
-  }
-
-  .field.full{
-    grid-column:auto;
-  }
-
-  .actions{
-    flex-direction:column;
-  }
-
-  .actions button{
-    width:100%;
-  }
-
-  .card-head{
-    margin-bottom:18px;
-  }
-
-  .status{
-    font-size:10px;
-  }
-
+  .brand img{width:112px}
+  .brand-title{font-size:9px;padding-left:10px}
+  .status{font-size:9px}
+  .hero{min-height:285px}
+  .hero-content{padding:50px 18px 44px}
+  .hero h1{font-size:38px}
+  .hero p{font-size:13px;line-height:1.6}
+  .wrapper{padding:17px 12px 45px}
+  .card-body{padding:16px}
+  .card-head{padding:17px 16px}
+  .two{grid-template-columns:1fr}
+  .actions{flex-direction:column}
+  .btn{width:100%}
+  .result-top{align-items:flex-start;flex-direction:column}
+  .result-body{padding:17px}
   .result-actions{
+    padding:15px 17px;
     flex-direction:column;
   }
-
-  .result-actions button{
-    width:100%;
-  }
+  .q-text{font-size:14px}
+  .footer{padding:20px 15px}
 }
 </style>
 </head>
@@ -610,930 +436,670 @@ button{
 <body>
 
 <header class="topbar">
-
   <div class="brand">
-    <img id="publicationLogo"
-         src="https://dineshmotorindia.github.io/Gopali-Co-Interview-Questions-Generator/motorindia-logo.png"
-         alt="MotorIndia">
-
-    <div class="brand-divider"></div>
-
-    <div class="brand-title">
-      Interview Questions Generator
-    </div>
+    <img id="brandLogo" src="motorindia-logo.png" alt="MotorIndia">
+    <div class="brand-title">Interview Questions Generator</div>
   </div>
-
-  <select id="publication" class="pub-select">
-    <option value="MotorIndia">MotorIndia</option>
-    <option value="Textile Magazine">Textile Magazine</option>
-  </select>
-
+  <div class="status">
+    <span class="status-dot"></span>
+    Research Enabled
+  </div>
 </header>
 
+<section class="hero">
+  <div id="heroBg" class="hero-bg"></div>
+  <div class="hero-overlay"></div>
 
-<main class="page">
+  <div class="hero-content">
+    <div class="kicker">Editorial Intelligence Tool</div>
+    <h1>Ask better questions.<br>Know who you're interviewing.</h1>
+    <p>
+      Research-led interview questions tailored to the executive,
+      company, event and conversation angle.
+    </p>
+  </div>
+</section>
 
-  <section class="hero">
+<main class="wrapper">
+  <div class="grid">
 
-    <div class="hero-content">
-
-      <div class="eyebrow" id="heroEyebrow">
-        MotorIndia Editorial Tool
-      </div>
-
-      <h1 id="heroTitle">
-        Interview Questions Generator
-      </h1>
-
-      <p id="heroText">
-        Generate sharp, professional and role-specific questions
-        for automotive, mobility and industry interviews.
-      </p>
-
-    </div>
-
-  </section>
-
-
-  <section class="layout">
-
-
-    <!-- INPUT CARD -->
-
-    <div class="card">
-
+    <section class="card">
       <div class="card-head">
-
-        <div>
-          <h2>Interview Details</h2>
-          <p>Enter the basic details of the interviewee and event.</p>
-        </div>
-
-        <div id="status" class="status">
-          Ready
-        </div>
-
+        <h2>Interview Brief</h2>
+        <p>Enter the interview details. More context produces sharper questions.</p>
       </div>
 
+      <div class="card-body">
 
-      <form id="generatorForm" autocomplete="off">
-
-        <div class="form-grid">
-
-
-          <div class="field">
-
-            <label>
-              Person Being Interviewed
-              <span class="required">*</span>
-            </label>
-
-            <input
-              id="person"
-              type="text"
-              placeholder="Full name"
-              required>
-
-          </div>
-
-
-          <div class="field">
-
-            <label>
-              Designation
-              <span class="required">*</span>
-            </label>
-
-            <input
-              id="designation"
-              type="text"
-              placeholder="Managing Director / CEO / VP"
-              required>
-
-          </div>
-
-
-          <div class="field">
-
-            <label>
-              Company
-              <span class="required">*</span>
-            </label>
-
-            <input
-              id="company"
-              type="text"
-              placeholder="Company name"
-              required>
-
-          </div>
-
-
-          <div class="field">
-
-            <label>
-              Event / Exhibition
-              <span class="required">*</span>
-            </label>
-
-            <input
-              id="event"
-              type="text"
-              placeholder="Event name"
-              required>
-
-          </div>
-
-
-          <div class="field full">
-
-            <label>
-              Event Theme
-            </label>
-
-            <input
-              id="theme"
-              type="text"
-              placeholder="Example: Future of Mobility">
-
-          </div>
-
-
-          <div class="field full">
-
-            <label>
-              Interview Angle
-            </label>
-
-            <textarea
-              id="angle"
-              placeholder="Example: Focus on EV strategy, localisation and future growth"></textarea>
-
-          </div>
-
-
-          <div class="field full">
-
-            <label>
-              Custom Focus
-            </label>
-
-            <textarea
-              id="customFocus"
-              placeholder="Any specific product, technology, market or issue you want covered"></textarea>
-
-          </div>
-
+        <div class="field">
+          <label>Publication</label>
+          <select id="publication">
+            <option value="motorindia">MotorIndia</option>
+            <option value="textile">Textile Magazine</option>
+          </select>
         </div>
 
-
-        <div class="divider"></div>
-
-        <div class="section-label">
-          Optional Research Sources
+        <div class="field">
+          <label>Person Being Interviewed <span class="req">*</span></label>
+          <input id="person" type="text" placeholder="Full name">
         </div>
 
-
-        <div class="form-grid">
-
+        <div class="two">
+          <div class="field">
+            <label>Designation <span class="req">*</span></label>
+            <input id="designation" type="text" placeholder="e.g. CEO">
+          </div>
 
           <div class="field">
-
-            <label>
-              Company Website
-            </label>
-
-            <input
-              id="companyUrl"
-              type="url"
-              placeholder="https://company.com">
-
+            <label>Company <span class="req">*</span></label>
+            <input id="company" type="text" placeholder="Company name">
           </div>
+        </div>
 
+        <div class="two">
+          <div class="field">
+            <label>Event / Exhibition <span class="req">*</span></label>
+            <input id="event" type="text" placeholder="Event name">
+          </div>
 
           <div class="field">
-
-            <label>
-              Executive / Profile URL
-            </label>
-
-            <input
-              id="profileUrl"
-              type="url"
-              placeholder="LinkedIn / profile page">
-
+            <label>Event Theme <span class="req">*</span></label>
+            <input id="theme" type="text" placeholder="Theme / focus">
           </div>
-
-
-          <div class="field full">
-
-            <label>
-              Event Website
-            </label>
-
-            <input
-              id="eventUrl"
-              type="url"
-              placeholder="https://event-website.com">
-
-          </div>
-
         </div>
 
-
-        <div class="help" style="margin-top:10px;">
-          Providing URLs allows the free backend to review the supplied pages
-          and use that information when framing the questions.
+        <div class="field">
+          <label>Interview Angle</label>
+          <textarea id="angle" placeholder="What do you particularly want to explore in this interview?"></textarea>
         </div>
 
+        <div class="field">
+          <label>Custom Focus</label>
+          <textarea id="focus" placeholder="Products, strategy, India plans, technology, customers, exports, sustainability, etc."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Company Website</label>
+          <input id="companyUrl" type="url" placeholder="https://company.com">
+        </div>
+
+        <div class="field">
+          <label>Executive / Profile URL</label>
+          <input id="profileUrl" type="url" placeholder="LinkedIn / company profile / bio URL">
+        </div>
+
+        <div class="field">
+          <label>Event Website</label>
+          <input id="eventUrl" type="url" placeholder="https://event.com">
+        </div>
+
+        <div id="error" class="error"></div>
+
+        <div id="researchBox" class="research" style="display:none">
+          <div class="research-title">
+            <span class="spinner"></span>
+            <span id="researchTitle">Researching...</span>
+          </div>
+          <div id="researchText" class="research-text">
+            Gathering relevant information and preparing the interview questions.
+          </div>
+        </div>
 
         <div class="actions">
-
-          <button
-            id="generateBtn"
-            class="btn-primary"
-            type="submit">
-            Generate Questions
-          </button>
-
-          <button
-            id="clearBtn"
-            class="btn-secondary"
-            type="button">
-            Clear
-          </button>
-
+          <button id="generateBtn" class="btn btn-primary">Generate Questions</button>
+          <button id="clearBtn" class="btn btn-secondary">Clear</button>
         </div>
 
+      </div>
+    </section>
 
-        <div id="loader" class="loader">
+    <section class="card">
 
-          <div class="spinner"></div>
-
-          <div id="loaderText">
-            Researching and generating questions...
-          </div>
-
-        </div>
-
-
-        <div id="errorBox" class="error"></div>
-
-      </form>
-
-    </div>
-
-
-    <!-- RESULTS CARD -->
-
-    <div class="card">
-
-      <div class="card-head">
-
+      <div id="emptyState" class="empty">
         <div>
-          <h2>Generated Questions</h2>
-          <p>Maximum 10 questions designed for an on-camera interview.</p>
-        </div>
-
-      </div>
-
-
-      <div id="emptyState" class="results-empty">
-
-        <div class="empty-inner">
-
           <div class="empty-icon">Q</div>
-
           <h3>Your questions will appear here</h3>
-
           <p>
-            Enter the interview details and click
-            <strong>Generate Questions</strong>.
+            Complete the interview brief and generate a research-led
+            set of questions designed for an on-camera conversation.
           </p>
-
         </div>
-
       </div>
-
 
       <div id="results" class="results">
 
-        <div id="resultMeta" class="result-meta"></div>
-
-        <div id="summary" class="summary"></div>
-
-        <div id="questions" class="questions"></div>
-
-        <div class="result-actions">
-
-          <button
-            id="copyBtn"
-            class="btn-primary"
-            type="button">
-            Copy Questions
-          </button>
-
-          <button
-            id="regenerateBtn"
-            class="btn-secondary"
-            type="button">
-            Regenerate
-          </button>
-
+        <div class="result-top">
+          <div>
+            <h2>Interview Questions</h2>
+            <div id="resultMeta" class="result-meta"></div>
+          </div>
+          <button id="regenBtn" class="btn btn-secondary">Regenerate</button>
         </div>
 
-        <div id="sources" class="source-list"></div>
+        <div id="questionList" class="result-body"></div>
+
+        <div class="result-actions">
+          <button id="copyBtn" class="btn btn-primary">Copy All Questions</button>
+          <button id="newBtn" class="btn btn-secondary">New Interview</button>
+        </div>
 
       </div>
 
-    </div>
+    </section>
 
-  </section>
-
-
-  <div class="footer">
-    MotorIndia Interview Questions Generator
   </div>
-
 </main>
 
+<footer class="footer">
+  MotorIndia Interview Questions Generator
+</footer>
 
 <script>
-
-/* =========================================================
+/* ============================================================
    CONFIGURATION
-   ========================================================= */
+   ============================================================ */
 
-const API_URL =
+const APPS_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbxmB0xLDyPMiUfYDKxpMrv0eUl4ThaVGX8c5YIDPTR9p3aUg2aImtZhdeKW3Cw20urHqw/exec";
 
+/* ============================================================
+   PUBLICATION THEMES
+   ============================================================ */
 
-/* =========================================================
-   ELEMENTS
-   ========================================================= */
-
-const form = document.getElementById("generatorForm");
-const generateBtn = document.getElementById("generateBtn");
-const clearBtn = document.getElementById("clearBtn");
-const regenerateBtn = document.getElementById("regenerateBtn");
-const copyBtn = document.getElementById("copyBtn");
-
-const errorBox = document.getElementById("errorBox");
-const loader = document.getElementById("loader");
-const loaderText = document.getElementById("loaderText");
-const status = document.getElementById("status");
-
-const emptyState = document.getElementById("emptyState");
-const results = document.getElementById("results");
-
-const resultMeta = document.getElementById("resultMeta");
-const summary = document.getElementById("summary");
-const questionsBox = document.getElementById("questions");
-const sourcesBox = document.getElementById("sources");
-
-const publication = document.getElementById("publication");
-const publicationLogo = document.getElementById("publicationLogo");
-
-const heroEyebrow = document.getElementById("heroEyebrow");
-const heroText = document.getElementById("heroText");
-
-
-/* =========================================================
-   PUBLICATION SWITCHER
-   ========================================================= */
-
-publication.addEventListener("change", updatePublication);
-
-function updatePublication(){
-
-  const value = publication.value;
-
-  if(value === "Textile Magazine"){
-
-    document.body.classList.add("textile");
-
-    publicationLogo.src =
-      "https://dineshmotorindia.github.io/Gopali-Co-Interview-Questions-Generator/textile-magazine-logo.png";
-
-    publicationLogo.alt = "Textile Magazine";
-
-    heroEyebrow.textContent =
-      "Textile Magazine Editorial Tool";
-
-    heroText.textContent =
-      "Generate sharp, professional and industry-specific questions for textile, apparel, machinery and technology interviews.";
-
-  }else{
-
-    document.body.classList.remove("textile");
-
-    publicationLogo.src =
-      "https://dineshmotorindia.github.io/Gopali-Co-Interview-Questions-Generator/motorindia-logo.png";
-
-    publicationLogo.alt = "MotorIndia";
-
-    heroEyebrow.textContent =
-      "MotorIndia Editorial Tool";
-
-    heroText.textContent =
-      "Generate sharp, professional and role-specific questions for automotive, mobility and industry interviews.";
+const PUBLICATIONS = {
+  motorindia: {
+    logo: "motorindia-logo.png",
+    hero: "motorindia-hero.png"
+  },
+  textile: {
+    logo: "textile-magazine-logo.png",
+    hero: "textile-hero.png"
   }
-}
-
-
-/* =========================================================
-   HELPERS
-   ========================================================= */
-
-function value(id){
-  return document.getElementById(id).value.trim();
-}
-
-
-function showError(message){
-
-  errorBox.textContent = message || "Something went wrong.";
-  errorBox.classList.add("show");
-}
-
-
-function hideError(){
-
-  errorBox.textContent = "";
-  errorBox.classList.remove("show");
-}
-
-
-function setLoading(active){
-
-  if(active){
-
-    loader.classList.add("show");
-
-    generateBtn.disabled = true;
-    generateBtn.textContent = "Generating...";
-
-    status.textContent = "Working";
-    status.classList.add("show");
-
-  }else{
-
-    loader.classList.remove("show");
-
-    generateBtn.disabled = false;
-    generateBtn.textContent = "Generate Questions";
-
-    status.textContent = "Ready";
-  }
-}
-
-
-/* =========================================================
-   JSONP REQUEST
-   ========================================================= */
-
-function requestBackend(payload){
-
-  return new Promise(function(resolve,reject){
-
-    const callbackName =
-      "motorIndiaCallback_" +
-      Date.now() +
-      "_" +
-      Math.floor(Math.random()*100000);
-
-    let finished = false;
-
-    const script = document.createElement("script");
-
-    const timeout = setTimeout(function(){
-
-      if(finished) return;
-
-      finished = true;
-
-      cleanup();
-
-      reject(
-        new Error(
-          "Unable to connect to the question generator. Please try again."
-        )
-      );
-
-    },45000);
-
-
-    window[callbackName] = function(data){
-
-      if(finished) return;
-
-      finished = true;
-
-      clearTimeout(timeout);
-
-      cleanup();
-
-      resolve(data);
-    };
-
-
-    function cleanup(){
-
-      try{
-        delete window[callbackName];
-      }catch(e){
-        window[callbackName] = undefined;
-      }
-
-      if(script.parentNode){
-        script.parentNode.removeChild(script);
-      }
-    }
-
-
-    script.onerror = function(){
-
-      if(finished) return;
-
-      finished = true;
-
-      clearTimeout(timeout);
-
-      cleanup();
-
-      reject(
-        new Error(
-          "Unable to connect to the question generator."
-        )
-      );
-    };
-
-
-    const encodedData =
-      encodeURIComponent(JSON.stringify(payload));
-
-    script.src =
-      API_URL +
-      "?callback=" +
-      encodeURIComponent(callbackName) +
-      "&data=" +
-      encodedData;
-
-    script.async = true;
-
-    document.body.appendChild(script);
-
-  });
-}
-
-
-/* =========================================================
-   COLLECT DATA
-   ========================================================= */
-
-function collectData(){
-
-  return {
-
-    person:value("person"),
-    designation:value("designation"),
-    company:value("company"),
-    event:value("event"),
-    theme:value("theme"),
-
-    publication:publication.value,
-
-    angle:value("angle"),
-    customFocus:value("customFocus"),
-
-    companyUrl:value("companyUrl"),
-    profileUrl:value("profileUrl"),
-    eventUrl:value("eventUrl")
+};
+
+const $ = id => document.getElementById(id);
+
+/* ============================================================
+   PUBLICATION SWITCH
+   ============================================================ */
+
+$("publication").addEventListener("change", function(){
+  const p = PUBLICATIONS[this.value];
+
+  $("brandLogo").src = p.logo;
+  $("heroBg").style.backgroundImage =
+    "url('" + p.hero + "')";
+});
+
+/* Initial hero */
+$("heroBg").style.backgroundImage =
+  "url('" + PUBLICATIONS.motorindia.hero + "')";
+
+/* ============================================================
+   VALIDATION
+   ============================================================ */
+
+function getPayload(){
+
+  const payload = {
+    person: $("person").value.trim(),
+    designation: $("designation").value.trim(),
+    company: $("company").value.trim(),
+    event: $("event").value.trim(),
+    theme: $("theme").value.trim(),
+    angle: $("angle").value.trim(),
+    focus: $("focus").value.trim(),
+    companyUrl: $("companyUrl").value.trim(),
+    profileUrl: $("profileUrl").value.trim(),
+    eventUrl: $("eventUrl").value.trim(),
+    publication: $("publication").value
   };
-}
 
+  const required = [
+    ["person","Person Being Interviewed"],
+    ["designation","Designation"],
+    ["company","Company"],
+    ["event","Event / Exhibition"],
+    ["theme","Event Theme"]
+  ];
 
-/* =========================================================
-   GENERATE
-   ========================================================= */
-
-form.addEventListener("submit",async function(e){
-
-  e.preventDefault();
-
-  hideError();
-
-  const payload = collectData();
-
-  if(
-    !payload.person ||
-    !payload.designation ||
-    !payload.company ||
-    !payload.event
-  ){
-
-    showError(
-      "Please fill in Person, Designation, Company and Event."
-    );
-
-    return;
+  for(const item of required){
+    if(!payload[item[0]]){
+      throw new Error(item[1] + " is required.");
+    }
   }
 
+  return payload;
+}
 
-  setLoading(true);
+/* ============================================================
+   BACKEND REQUEST
+   ============================================================ */
 
-  loaderText.textContent =
-    "Researching and generating questions...";
+/*
+  IMPORTANT:
+  This uses a normal POST request instead of JSONP.
 
+  The Apps Script backend must accept POST and return JSON.
+*/
 
-  try{
+async function callBackend(payload){
 
-    const data =
-      await requestBackend(payload);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 60000);
 
+  try {
 
-    if(!data || !data.success){
+    const response = await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      mode: "cors",
+      redirect: "follow",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
 
+    if(!response.ok){
       throw new Error(
-        data && data.error
-          ? data.error
-          : "The generator could not create questions."
+        "Generator server returned HTTP " + response.status
       );
     }
 
+    const text = await response.text();
 
-    renderResults(data);
+    let data;
+
+    try{
+      data = JSON.parse(text);
+    }catch(e){
+      console.error("Non-JSON response:", text);
+      throw new Error("The generator returned an invalid response.");
+    }
+
+    if(data.error){
+      throw new Error(data.error);
+    }
+
+    return data;
 
   }catch(err){
 
-    showError(
-      err && err.message
-        ? err.message
-        : "Unable to connect to the question generator."
-    );
+    if(err.name === "AbortError"){
+      throw new Error(
+        "The request timed out. Please check your connection and try again."
+      );
+    }
+
+    if(err instanceof TypeError){
+      throw new Error(
+        "Unable to connect to the question generator. Please check the mobile internet connection and try again."
+      );
+    }
+
+    throw err;
 
   }finally{
+    clearTimeout(timeout);
+  }
+}
 
-    setLoading(false);
+/* ============================================================
+   UI STATE
+   ============================================================ */
+
+function showError(message){
+  $("error").textContent = message;
+  $("error").style.display = "block";
+}
+
+function hideError(){
+  $("error").style.display = "none";
+  $("error").textContent = "";
+}
+
+function setResearching(active){
+
+  $("researchBox").style.display = active ? "block" : "none";
+  $("generateBtn").disabled = active;
+  $("regenBtn").disabled = active;
+
+  if(active){
+    const messages = [
+      "Researching the interviewee and company...",
+      "Looking at the event context...",
+      "Identifying relevant business and industry angles...",
+      "Building a natural question progression...",
+      "Finalising the interview questions..."
+    ];
+
+    let i = 0;
+
+    $("researchTitle").textContent = messages[0];
+
+    window.researchTimer = setInterval(() => {
+      i = Math.min(i + 1, messages.length - 1);
+      $("researchTitle").textContent = messages[i];
+    }, 2200);
+
+  }else{
+    clearInterval(window.researchTimer);
+  }
+}
+
+/* ============================================================
+   NORMALISE BACKEND RESPONSE
+   ============================================================ */
+
+function extractQuestions(data){
+
+  /*
+    Supports several response structures so the frontend
+    remains tolerant of backend changes.
+  */
+
+  let questions = [];
+
+  if(Array.isArray(data)){
+    questions = data;
   }
 
-});
+  else if(Array.isArray(data.questions)){
+    questions = data.questions;
+  }
 
+  else if(data.result && Array.isArray(data.result.questions)){
+    questions = data.result.questions;
+  }
 
-/* =========================================================
+  else if(typeof data.questions === "string"){
+    questions = data.questions
+      .split(/\n+/)
+      .map(x => x.replace(/^\s*(\d+[\).\:-]|\-|\•)\s*/, "").trim())
+      .filter(Boolean);
+  }
+
+  return questions
+    .map(q => {
+      if(typeof q === "string") return q.trim();
+
+      if(q && typeof q === "object"){
+        return String(
+          q.question ||
+          q.text ||
+          q.content ||
+          ""
+        ).trim();
+      }
+
+      return "";
+    })
+    .filter(Boolean)
+    .slice(0,10);
+}
+
+/* ============================================================
    RENDER RESULTS
-   ========================================================= */
+   ============================================================ */
 
-function renderResults(data){
+function renderResults(data, payload){
 
-  emptyState.style.display = "none";
+  const questions = extractQuestions(data);
 
-  results.classList.add("show");
+  if(!questions.length){
+    throw new Error(
+      "The generator returned no questions. Please try again."
+    );
+  }
 
+  $("emptyState").style.display = "none";
+  $("results").style.display = "block";
 
-  resultMeta.innerHTML =
-    "<div class='result-person'>" +
-      escapeHtml(data.person) +
-    "</div>" +
+  $("resultMeta").textContent =
+    payload.person +
+    " · " +
+    payload.designation +
+    " · " +
+    payload.company;
 
-    "<div class='result-role'>" +
-      escapeHtml(data.designation) +
-      " · " +
-      escapeHtml(data.company) +
-      " · " +
-      escapeHtml(data.event) +
-    "</div>";
+  $("questionList").innerHTML = "";
 
+  questions.forEach((question,index) => {
 
-  summary.textContent =
-    data.researchSummary || "";
+    const div = document.createElement("div");
+    div.className = "question";
 
+    const number = document.createElement("div");
+    number.className = "q-number";
+    number.textContent = String(index + 1).padStart(2,"0");
 
-  questionsBox.innerHTML = "";
+    const text = document.createElement("div");
+    text.className = "q-text";
+    text.textContent = question;
 
+    div.appendChild(number);
+    div.appendChild(text);
 
-  (data.questions || []).forEach(function(question,index){
-
-    const item =
-      document.createElement("div");
-
-    item.className = "question";
-
-
-    const number =
-      document.createElement("div");
-
-    number.className = "qnum";
-
-    number.textContent =
-      index + 1;
-
-
-    const text =
-      document.createElement("div");
-
-    text.className = "qtext";
-
-    text.textContent =
-      question;
-
-
-    item.appendChild(number);
-    item.appendChild(text);
-
-    questionsBox.appendChild(item);
-
+    $("questionList").appendChild(div);
   });
 
+  /*
+    Show research URLs supplied by the user.
+  */
 
-  renderSources(data.sources || []);
+  const urls = [
+    ["Company Website",payload.companyUrl],
+    ["Executive Profile",payload.profileUrl],
+    ["Event Website",payload.eventUrl]
+  ].filter(x => x[1]);
 
-  window.lastGeneratedData = data;
+  if(urls.length){
 
+    const sourceBox = document.createElement("div");
+    sourceBox.className = "sources";
 
-  results.scrollIntoView({
+    const title = document.createElement("h3");
+    title.textContent = "Reference Sources";
+
+    const list = document.createElement("div");
+    list.className = "source-list";
+
+    urls.forEach(([label,url]) => {
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.textContent = label;
+
+      list.appendChild(a);
+    });
+
+    sourceBox.appendChild(title);
+    sourceBox.appendChild(list);
+
+    $("questionList").appendChild(sourceBox);
+  }
+
+  $("results").scrollIntoView({
     behavior:"smooth",
     block:"start"
   });
 }
 
+/* ============================================================
+   GENERATE
+   ============================================================ */
 
-/* =========================================================
-   SOURCES
-   ========================================================= */
+async function generate(){
 
-function renderSources(sources){
+  hideError();
 
-  sourcesBox.innerHTML = "";
+  let payload;
 
-
-  if(!sources || !sources.length){
-
+  try{
+    payload = getPayload();
+  }catch(err){
+    showError(err.message);
     return;
   }
 
-
-  const heading =
-    document.createElement("h4");
-
-  heading.textContent =
-    "Research Sources";
-
-  sourcesBox.appendChild(heading);
-
-
-  sources.forEach(function(source){
-
-    if(!source.url) return;
-
-
-    const link =
-      document.createElement("a");
-
-    link.href = source.url;
-
-    link.target = "_blank";
-
-    link.rel = "noopener noreferrer";
-
-    link.textContent =
-      source.type + ": " + source.url;
-
-    sourcesBox.appendChild(link);
-
-  });
-}
-
-
-/* =========================================================
-   COPY QUESTIONS
-   ========================================================= */
-
-copyBtn.addEventListener("click",async function(){
-
-  const data =
-    window.lastGeneratedData;
-
-  if(!data || !data.questions){
-
-    return;
-  }
-
-
-  let text = "";
-
-  text +=
-    data.person +
-    " — " +
-    data.designation +
-    ", " +
-    data.company +
-    "\n";
-
-  text +=
-    data.event +
-    "\n\n";
-
-
-  data.questions.forEach(function(q,index){
-
-    text +=
-      (index + 1) +
-      ". " +
-      q +
-      "\n\n";
-
-  });
-
+  setResearching(true);
 
   try{
 
-    await navigator.clipboard.writeText(text);
+    const data = await callBackend(payload);
 
-    copyBtn.textContent =
-      "Copied!";
+    setResearching(false);
 
-    setTimeout(function(){
+    renderResults(data,payload);
 
-      copyBtn.textContent =
-        "Copy Questions";
+  }catch(err){
 
-    },1600);
+    setResearching(false);
 
-  }catch(e){
+    console.error(err);
+
+    showError(
+      err.message ||
+      "Unable to connect to the question generator."
+    );
+  }
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+$("generateBtn").addEventListener("click",generate);
+
+$("regenBtn").addEventListener("click",generate);
+
+$("newBtn").addEventListener("click",function(){
+  clearForm();
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+});
+
+$("clearBtn").addEventListener("click",clearForm);
+
+function clearForm(){
+
+  [
+    "person",
+    "designation",
+    "company",
+    "event",
+    "theme",
+    "angle",
+    "focus",
+    "companyUrl",
+    "profileUrl",
+    "eventUrl"
+  ].forEach(id => {
+    $(id).value = "";
+  });
+
+  $("emptyState").style.display = "flex";
+  $("results").style.display = "none";
+
+  hideError();
+
+  setResearching(false);
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+/* ============================================================
+   COPY
+   ============================================================ */
+
+$("copyBtn").addEventListener("click",async function(){
+
+  const nodes = document.querySelectorAll(".q-text");
+
+  const questions = Array.from(nodes)
+    .map((node,i) =>
+      (i + 1) + ". " + node.textContent.trim()
+    );
+
+  if(!questions.length) return;
+
+  const text = questions.join("\n\n");
+
+  try{
+
+    if(navigator.clipboard &&
+       window.isSecureContext){
+
+      await navigator.clipboard.writeText(text);
+
+    }else{
+
+      const area = document.createElement("textarea");
+      area.value = text;
+      area.style.position = "fixed";
+      area.style.left = "-9999px";
+
+      document.body.appendChild(area);
+      area.focus();
+      area.select();
+
+      document.execCommand("copy");
+
+      document.body.removeChild(area);
+    }
+
+    const old = this.textContent;
+    this.textContent = "Copied";
+
+    setTimeout(() => {
+      this.textContent = old;
+    },1500);
+
+  }catch(err){
 
     showError(
       "Could not copy automatically. Please select and copy the questions manually."
     );
   }
+});
+
+/* ============================================================
+   ENTER KEY SUPPORT
+   ============================================================ */
+
+document.addEventListener("keydown",function(e){
+
+  if(
+    e.key === "Enter" &&
+    (e.ctrlKey || e.metaKey) &&
+    !e.shiftKey
+  ){
+    e.preventDefault();
+    generate();
+  }
 
 });
 
+/* ============================================================
+   IMAGE FALLBACKS
+   ============================================================ */
 
-/* =========================================================
-   REGENERATE
-   ========================================================= */
-
-regenerateBtn.addEventListener("click",function(){
-
-  form.requestSubmit();
-
+$("brandLogo").addEventListener("error",function(){
+  this.style.display = "none";
 });
 
-
-/* =========================================================
-   CLEAR
-   ========================================================= */
-
-clearBtn.addEventListener("click",function(){
-
-  form.reset();
-
-  hideError();
-
-  results.classList.remove("show");
-
-  emptyState.style.display =
-    "flex";
-
-  questionsBox.innerHTML = "";
-
-  summary.textContent = "";
-
-  resultMeta.innerHTML = "";
-
-  sourcesBox.innerHTML = "";
-
-  window.lastGeneratedData = null;
-
-  status.classList.remove("show");
-
-  updatePublication();
-
+$("heroBg").addEventListener("error",function(){
+  this.style.backgroundImage =
+    "linear-gradient(135deg,#07111f,#14253a)";
 });
-
-
-/* =========================================================
-   HTML ESCAPE
-   ========================================================= */
-
-function escapeHtml(value){
-
-  return String(value || "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
-
-
-/* =========================================================
-   INITIALISE
-   ========================================================= */
-
-updatePublication();
-
 </script>
 
 </body>
