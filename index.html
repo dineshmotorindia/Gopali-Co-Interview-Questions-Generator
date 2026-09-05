@@ -57,26 +57,46 @@ button{border:0;border-radius:9px;padding:13px 18px;font-size:14px;font-weight:7
   @keyframes miqPulse{0%,100%{transform:scale(.85);opacity:.5}50%{transform:scale(1.25);opacity:1}}
   @keyframes miqSpin{to{transform:rotate(360deg)}}
   @media(max-width:700px){.field.full{grid-column:auto}.research-status{border-radius:14px}}
+
+  /* Publication selector + dynamic publication header */
+  .header{padding:24px 20px 30px}
+  .header-top{max-width:1180px;margin:0 auto 18px;display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
+  .publication-caption{font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.62);margin-top:5px}
+  .publication-select{width:245px}
+  .publication-select label{display:block;margin:0 0 6px;font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:rgba(255,255,255,.72)}
+  .publication-select .select-wrap{position:relative}
+  .publication-select .select-wrap select{width:100%;height:44px;padding:0 42px 0 42px;border:1px solid rgba(255,255,255,.28);border-radius:11px;background:rgba(255,255,255,.12);color:#fff;font-weight:700;font-size:14px;appearance:none;-webkit-appearance:none;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.12);backdrop-filter:blur(8px)}
+  .publication-select .select-wrap select:hover{background:rgba(255,255,255,.17);border-color:rgba(255,255,255,.42)}
+  .publication-select .select-wrap select:focus{outline:none;border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.15)}
+  .publication-select .select-wrap select option{background:#fff;color:#172033}
+  .publication-select .select-wrap:after{content:"⌄";position:absolute;right:15px;top:50%;transform:translateY(-54%);pointer-events:none;color:#fff;font-size:18px;opacity:.9}
+  .publication-select .field-icon{left:14px;top:50%;color:#fff;opacity:.85}
+  .header h1{max-width:1180px;margin:0 auto 6px;font-size:32px}
+  .header .subtitle{max-width:1180px;margin:0 auto;color:#dce8f8;font-size:15px}
+  @media(max-width:600px){.header-top{align-items:stretch;flex-direction:column;gap:14px}.publication-select{width:100%}.header h1{font-size:25px}}
 </style>
 
 </head>
 <body>
-<div class="field full">
-  <label for="publication">Publication</label>
-  <div class="select-wrap">
-    <span class="field-icon" aria-hidden="true">▣</span>
-    <select id="publication">
-      <option value="MotorIndia">MotorIndia</option>
-      <option value="Textile Magazine">Textile Magazine</option>
-    </select>
-  </div>
-  <div class="hint">Choose the publication voice for the interview.</div>
-</div>
-
 <header class="header"><div class="header-inner">
-<div class="logo-text">MOTORINDIA</div>
-<h1>Interview Questions Generator</h1>
-<p class="subtitle">Research-led interview questions for automotive &amp; mobility journalism</p>
+  <div class="header-top">
+    <div>
+      <div class="logo-text" id="brandName">MOTORINDIA</div>
+      <div class="publication-caption">Publication voice</div>
+    </div>
+    <div class="publication-select">
+      <label for="publication">Publication</label>
+      <div class="select-wrap">
+        <span class="field-icon" aria-hidden="true">▣</span>
+        <select id="publication" aria-label="Select publication">
+          <option value="MotorIndia">MotorIndia</option>
+          <option value="Textile Magazine">Textile Magazine</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <h1 id="pageTitle">Interview Questions Generator</h1>
+  <p class="subtitle" id="pageSubtitle">Research-led interview questions for automotive &amp; mobility journalism</p>
 </div></header>
 <div class="container"><div class="grid">
 <div class="card">
@@ -144,6 +164,33 @@ function requestJsonp(payload){
   });
 }
 
+const publicationProfiles = {
+  "MotorIndia": {
+    brand: "MOTORINDIA",
+    title: "Interview Questions Generator",
+    subtitle: "Research-led interview questions for automotive & mobility journalism",
+    docTitle: "MotorIndia Interview Questions Generator"
+  },
+  "Textile Magazine": {
+    brand: "TEXTILE MAGAZINE",
+    title: "Interview Questions Generator",
+    subtitle: "Research-led interview questions for textile & apparel journalism",
+    docTitle: "Textile Magazine Interview Questions Generator"
+  }
+};
+
+function updatePublicationHeader(){
+  const publication = document.getElementById("publication")?.value || "MotorIndia";
+  const profile = publicationProfiles[publication] || publicationProfiles.MotorIndia;
+  document.getElementById("brandName").textContent = profile.brand;
+  document.getElementById("pageTitle").textContent = profile.title;
+  document.getElementById("pageSubtitle").textContent = profile.subtitle;
+  document.title = profile.docTitle;
+}
+
+document.getElementById("publication")?.addEventListener("change", updatePublicationHeader);
+updatePublicationHeader();
+
 async function generateQuestions(regenerate=false){
   const button = document.getElementById("generateBtn") || document.querySelector('button[type="submit"]');
   const originalButtonText = button ? button.innerHTML : "";
@@ -206,7 +253,7 @@ output.innerHTML=html;
 }
 function clearResults(){document.getElementById("output").innerHTML='<div class="output-placeholder"><strong>Your interview questions will appear here.</strong><br><br>Enter the interviewee and event details on the left.<br>Adding company, profile and event URLs will allow the tool to use those public pages for research.</div>';document.getElementById("copyBtn").classList.add("hidden")}
 async function copyAll(){
-const questions=document.querySelectorAll(".question");if(!questions.length)return;let text="MOTORINDIA INTERVIEW QUESTIONS\n\n";
+const questions=document.querySelectorAll(".question");if(!questions.length)return;let text=(document.getElementById("publication")?.value || "MotorIndia").toUpperCase()+" INTERVIEW QUESTIONS\n\n";
 questions.forEach((q,index)=>{const t=q.querySelector(".question-text");if(t)text+=(index+1)+". "+t.innerText.trim()+"\n\n"});
 try{await navigator.clipboard.writeText(text);alert("Questions copied.")}catch(e){alert("Unable to copy automatically. Please select and copy the questions.")}
 }
@@ -259,12 +306,6 @@ function showResearchError(message){
   if(!panel) return;
   panel.hidden=false;
   panel.innerHTML='<div class="research-title error"><span>!</span> '+escapeHtml(message)+'</div>';
-}
-
-function escapeHtml(value){
-  return String(value).replace(/[&<>"']/g, c=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[c]));
 }
 
 function regenerateQuestions(){
