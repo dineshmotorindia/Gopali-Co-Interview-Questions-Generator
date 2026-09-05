@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MotorIndia Interview Questions Generator</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f6fa;
+    color: #172033;
+}
+
+.header {
+    background: linear-gradient(135deg, #071d49, #0d3d82);
+    color: white;
+    padding: 28px 20px;
+}
+
+.header-inner {
+    max-width: 1180px;
+    margin: auto;
+}
+
+.logo-text {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    opacity: .85;
+    text-transform: uppercase;
+}
+
+h1 {
+    margin: 8px 0 5px;
+    font-size: 32px;
+}
+
+.subtitle {
+    margin: 0;
+    color: #dce8f8;
+    font-size: 15px;
+}
+
+.container {
+    max-width: 1180px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 430px 1fr;
+    gap: 24px;
+}
+
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 5px 20px rgba(20, 40, 70, .08);
+    border: 1px solid #e4eaf1;
+}
+
+.card h2 {
+    margin: 0 0 20px;
+    font-size: 20px;
+    color: #092b63;
+}
+
+.field {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #344054;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    background: white;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #1769d1;
+    box-shadow: 0 0 0 3px rgba(23,105,209,.1);
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.optional {
+    font-weight: 400;
+    color: #8a94a6;
+}
+
+button {
+    border: 0;
+    border-radius: 9px;
+    padding: 13px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.generate-btn {
+    width: 100%;
+    background: #0b4ea2;
+    color: white;
+    margin-top: 5px;
+}
+
+.generate-btn:hover {
+    background: #083d80;
+}
+
+.generate-btn:disabled {
+    background: #8aa4c6;
+    cursor: wait;
+}
+
+.clear-btn {
+    background: #edf2f7;
+    color: #344054;
+}
+
+.top-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.output-placeholder {
+    color: #667085;
+    line-height: 1.6;
+    text-align: center;
+    padding: 70px 20px;
+}
+
+.loading {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.spinner {
+    width: 38px;
+    height: 38px;
+    border: 4px solid #dbe5f1;
+    border-top-color: #0b4ea2;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.summary {
+    background: #f4f8fd;
+    border-left: 4px solid #0b4ea2;
+    padding: 15px;
+    border-radius: 7px;
+    margin-bottom: 22px;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.question {
+    border: 1px solid #e1e7ef;
+    border-radius: 10px;
+    padding: 17px;
+    margin-bottom: 13px;
+    background: #fff;
+}
+
+.question-number {
+    color: #0b4ea2;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 7px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.question-text {
+    font-size: 15px;
+    line-height: 1.55;
+    font-weight: 600;
+}
+
+.question-angle {
+    margin-top: 9px;
+    color: #667085;
+    font-size: 12px;
+}
+
+.sources {
+    margin-top: 25px;
+}
+
+.sources h3 {
+    color: #092b63;
+    font-size: 16px;
+}
+
+.source {
+    padding: 9px 0;
+    border-bottom: 1px solid #edf0f4;
+    font-size: 13px;
+}
+
+.source a {
+    color: #0b4ea2;
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.error {
+    background: #fff1f1;
+    color: #a61b1b;
+    border: 1px solid #f2c2c2;
+    padding: 15px;
+    border-radius: 8px;
+    line-height: 1.5;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 25px;
+    }
+
+    .container {
+        padding: 0 12px;
+        margin-top: 18px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-inner">
+        <div class="logo-text">MOTORINDIA</div>
+        <h1>Interview Questions Generator</h1>
+        <p class="subtitle">
+            Research-led interview questions for automotive & mobility journalism
+        </p>
+    </div>
+</header>
+
+<div class="container">
+
+<div class="grid">
+
+<!-- INPUT -->
+<div class="card">
+
+<h2>Interview Details</h2>
+
+<div class="field">
+<label>Person Being Interviewed *</label>
+<input id="name" placeholder="Full name">
+</div>
+
+<div class="field">
+<label>Designation *</label>
+<input id="designation" placeholder="e.g. CEO, Managing Director">
+</div>
+
+<div class="field">
+<label>Company Name *</label>
+<input id="company" placeholder="Company name">
+</div>
+
+<div class="field">
+<label>Event / Exhibition Name *</label>
+<input id="event" placeholder="e.g. IAA Transportation 2026">
+</div>
+
+<div class="field">
+<label>Event Theme</label>
+<input id="theme" placeholder="Event theme or key focus">
+</div>
+
+<div class="field">
+<label>Company Website <span class="optional">(optional)</span></label>
+<input id="companyUrl" type="url" placeholder="https://...">
+</div>
+
+<div class="field">
+<label>Executive / Profile URL <span class="optional">(optional)</span></label>
+<input id="profileUrl" type="url" placeholder="https://...">
+</div>
+
+<div class="field">
+<label>Event Website <span class="optional">(optional)</span></label>
+<input id="eventUrl" type="url" placeholder="https://...">
+</div>
+
+<div class="field">
+<label>Interview Angle</label>
+
+<select id="angle">
+<option value="">General interview</option>
+<option>Company strategy</option>
+<option>Products & technology</option>
+<option>Electric vehicles</option>
+<option>Commercial vehicles</option>
+<option>Bus & public transport</option>
+<option>Aftermarket</option>
+<option>Connected mobility</option>
+<option>Fleet technology</option>
+<option>India market</option>
+<option>Global expansion</option>
+<option>Sustainability</option>
+<option>Manufacturing</option>
+</select>
+
+</div>
+
+<div class="field">
+<label>Custom Focus <span class="optional">(optional)</span></label>
+
+<textarea
+id="customFocus"
+placeholder="Anything specific you want the interview to cover?"></textarea>
+
+</div>
+
+<button
+class="generate-btn"
+id="generateBtn"
+onclick="generateQuestions()">
+
+Research & Generate Questions
+
+</button>
+
+</div>
+
+
+<!-- OUTPUT -->
+<div class="card">
+
+<div class="top-actions">
+
+<button
+class="clear-btn"
+onclick="clearResults()">
+
+Clear
+
+</button>
+
+<button
+class="clear-btn hidden"
+id="copyBtn"
+onclick="copyAll()">
+
+Copy All
+
+</button>
+
+</div>
+
+<div id="output">
+
+<div class="output-placeholder">
+
+<strong>Your interview questions will appear here.</strong>
+
+<br><br>
+
+Enter the interviewee and event details on the left.
+
+<br>
+
+Adding company, profile and event URLs will allow the
+tool to use those public pages for research.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   IMPORTANT:
+   PUT YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW
+   ========================================================= */
+
+const API_ENDPOINT = https://script.google.com/macros/s/AKfycbx7qSs4-VIZ_MeWu0aa1CPAqJkAkatV8EC5c_dXVQw5RMMj7YnjSoEvCkcBWPDbAu9p3w/exec;
+
+async function generateQuestions() {
+
+    const name = document.getElementById("name").value.trim();
+    const designation = document.getElementById("designation").value.trim();
+    const company = document.getElementById("company").value.trim();
+    const event = document.getElementById("event").value.trim();
+
+    if (!name || !designation || !company || !event) {
+
+        alert(
+            "Please enter the Person Name, Designation, Company and Event."
+        );
+
+        return;
+    }
+
+
+    if (
+        !API_ENDPOINT ||
+        API_ENDPOINT.includes("PASTE_YOUR")
+    ) {
+
+        alert(
+            "Please add your Google Apps Script Web App URL in the API_ENDPOINT line."
+        );
+
+        return;
+    }
+
+
+    const btn = document.getElementById("generateBtn");
+
+    const output = document.getElementById("output");
+
+    const copyBtn = document.getElementById("copyBtn");
+
+
+    btn.disabled = true;
+
+    btn.textContent = "Researching & Generating...";
+
+    copyBtn.classList.add("hidden");
+
+
+    output.innerHTML = `
+        <div class="loading">
+
+            <div class="spinner"></div>
+
+            <strong>Researching interview details...</strong>
+
+            <br><br>
+
+            Building targeted questions.
+
+        </div>
+    `;
+
+
+    const payload = {
+
+        name: name,
+
+        designation:
+            designation,
+
+        company:
+            company,
+
+        event:
+            event,
+
+        theme:
+            document.getElementById("theme").value.trim(),
+
+        companyUrl:
+            document.getElementById("companyUrl").value.trim(),
+
+        profileUrl:
+            document.getElementById("profileUrl").value.trim(),
+
+        eventUrl:
+            document.getElementById("eventUrl").value.trim(),
+
+        angle:
+            document.getElementById("angle").value,
+
+        customFocus:
+            document.getElementById("customFocus").value.trim()
+
+    };
+
+
+    try {
+
+        const response = await fetch(API_ENDPOINT, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "text/plain;charset=utf-8"
+            },
+
+            body: JSON.stringify(payload)
+
+        });
+
+
+        const data = await response.json();
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.error || "Unable to generate questions."
+            );
+
+        }
+
+
+        displayResults(data.result);
+
+
+        copyBtn.classList.remove("hidden");
+
+
+    } catch (error) {
+
+        output.innerHTML = `
+            <div class="error">
+
+                <strong>Could not generate questions.</strong>
+
+                <br><br>
+
+                ${escapeHtml(error.message)}
+
+            </div>
+        `;
+
+    }
+
+
+    btn.disabled = false;
+
+    btn.textContent = "Research & Generate Questions";
+
+}
+
+
+function displayResults(result) {
+
+    const output =
+        document.getElementById("output");
+
+
+    let html = "";
+
+
+    if (result.researchSummary) {
+
+        html += `
+
+            <div class="summary">
+
+                <strong>Research Summary</strong>
+
+                <br><br>
+
+                ${escapeHtml(result.researchSummary)}
+
+            </div>
+
+        `;
+
+    }
+
+
+    html += `
+
+        <h2 style="margin-bottom:16px;">
+
+            Interview Questions
+
+        </h2>
+
+    `;
+
+
+    if (
+        !result.questions ||
+        !result.questions.length
+    ) {
+
+        html += `
+            <div class="error">
+                No questions were generated.
+            </div>
+        `;
+
+    } else {
+
+        result.questions.forEach(
+            function(item, index) {
+
+                html += `
+
+                    <div class="question">
+
+                        <div class="question-number">
+
+                            Question ${index + 1}
+
+                        </div>
+
+                        <div class="question-text">
+
+                            ${escapeHtml(item.question)}
+
+                        </div>
+
+                        ${
+                            item.angle
+                            ?
+                            `
+                            <div class="question-angle">
+
+                                Interview angle:
+                                ${escapeHtml(item.angle)}
+
+                            </div>
+                            `
+                            :
+                            ""
+                        }
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+    }
+
+
+    if (
+        result.sources &&
+        result.sources.length
+    ) {
+
+        html += `
+
+            <div class="sources">
+
+                <h3>Research Sources</h3>
+
+        `;
+
+
+        result.sources.forEach(
+            function(source) {
+
+                html += `
+
+                    <div class="source">
+
+                        <strong>
+                            ${escapeHtml(source.title)}
+                        </strong>
+
+                        <br>
+
+                        <a
+                            href="${escapeAttribute(source.url)}"
+                            target="_blank"
+                            rel="noopener noreferrer">
+
+                            ${escapeHtml(source.url)}
+
+                        </a>
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+
+        html += `</div>`;
+
+    }
+
+
+    output.innerHTML = html;
+
+}
+
+
+function clearResults() {
+
+    document.getElementById("output").innerHTML = `
+
+        <div class="output-placeholder">
+
+            <strong>
+                Your interview questions will appear here.
+            </strong>
+
+            <br><br>
+
+            Enter the interviewee and event details on the left.
+
+            <br>
+
+            Adding company, profile and event URLs will allow
+            the tool to use those public pages for research.
+
+        </div>
+
+    `;
+
+
+    document
+        .getElementById("copyBtn")
+        .classList.add("hidden");
+
+}
+
+
+async function copyAll() {
+
+    const questions =
+        document.querySelectorAll(".question");
+
+    if (!questions.length) {
+
+        return;
+
+    }
+
+
+    let text = "MOTORINDIA INTERVIEW QUESTIONS\n\n";
+
+
+    questions.forEach(
+        function(q, index) {
+
+            const questionText =
+                q.querySelector(".question-text");
+
+            if (questionText) {
+
+                text +=
+                    (index + 1) +
+                    ". " +
+                    questionText.innerText.trim() +
+                    "\n\n";
+
+            }
+
+        }
+    );
+
+
+    try {
+
+        await navigator.clipboard.writeText(text);
+
+        alert("Questions copied.");
+
+    } catch (error) {
+
+        alert(
+            "Unable to copy automatically. Please select and copy the questions."
+        );
+
+    }
+
+}
+
+
+function escapeHtml(value) {
+
+    if (value === null || value === undefined) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function escapeAttribute(value) {
+
+    return escapeHtml(value);
+
+}
+
+</script>
+
+</body>
+</html>
