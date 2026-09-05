@@ -33,8 +33,46 @@ button{border:0;border-radius:9px;padding:13px 18px;font-size:14px;font-weight:7
 .error{background:#fff1f1;color:#a61b1b;border:1px solid #f2c2c2;padding:15px;border-radius:8px;line-height:1.5}.hidden{display:none}
 @media(max-width:900px){.grid{grid-template-columns:1fr}}@media(max-width:600px){h1{font-size:25px}.container{padding:0 12px;margin-top:18px}.card{padding:18px}}
 </style>
+
+<style>
+  .field.full{grid-column:1/-1}
+  .select-wrap{position:relative}
+  .select-wrap select{width:100%;appearance:none;-webkit-appearance:none;padding-right:42px}
+  .select-wrap:after{content:"⌄";position:absolute;right:16px;top:50%;transform:translateY(-50%);pointer-events:none;font-size:18px;opacity:.7}
+  .field-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);z-index:2;opacity:.7}
+  .select-wrap select{padding-left:42px}
+  .research-status{margin:18px 0;padding:18px;border:1px solid rgba(20,47,88,.12);border-radius:18px;background:linear-gradient(135deg,rgba(245,248,252,.96),rgba(255,255,255,.98));box-shadow:0 10px 28px rgba(0,0,0,.05);overflow:hidden}
+  .research-title{font-weight:800;display:flex;align-items:center;gap:9px;margin-bottom:12px}
+  .research-title.complete{color:#147a4b}.research-title.error{color:#b3261e}
+  .pulse-dot{width:9px;height:9px;border-radius:50%;background:currentColor;animation:miqPulse 1.2s infinite}
+  .research-steps{display:grid;gap:8px}
+  .research-step{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:11px;opacity:.38;transform:translateX(-5px);transition:all .35s ease}
+  .research-step.active{opacity:1;transform:translateX(0);background:rgba(20,47,88,.055)}
+  .research-icon{width:25px;text-align:center;font-weight:800}
+  .spinner{display:inline-block;width:14px;height:14px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;vertical-align:-2px;animation:miqSpin .7s linear infinite}
+  .result-actions{display:flex;justify-content:center;margin:18px 0 8px}
+  .secondary-btn{border:1px solid rgba(20,47,88,.2);background:#fff;border-radius:12px;padding:11px 18px;font-weight:800;cursor:pointer;transition:transform .2s,box-shadow .2s}
+  .secondary-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
+  button:disabled{opacity:.65;cursor:wait}
+  @keyframes miqPulse{0%,100%{transform:scale(.85);opacity:.5}50%{transform:scale(1.25);opacity:1}}
+  @keyframes miqSpin{to{transform:rotate(360deg)}}
+  @media(max-width:700px){.field.full{grid-column:auto}.research-status{border-radius:14px}}
+</style>
+
 </head>
 <body>
+<div class="field full">
+  <label for="publication">Publication</label>
+  <div class="select-wrap">
+    <span class="field-icon" aria-hidden="true">▣</span>
+    <select id="publication">
+      <option value="MotorIndia">MotorIndia</option>
+      <option value="Textile Magazine">Textile Magazine</option>
+    </select>
+  </div>
+  <div class="hint">Choose the publication voice for the interview.</div>
+</div>
+
 <header class="header"><div class="header-inner">
 <div class="logo-text">MOTORINDIA</div>
 <h1>Interview Questions Generator</h1>
@@ -106,7 +144,57 @@ function requestJsonp(payload){
   });
 }
 
-async function generateQuestions(){
+async function generateQuestions(regenerate=false){
+  const button = document.getElementById("generateBtn") || document.querySelector('button[type="submit"]');
+  const originalButtonText = button ? button.innerHTML : "";
+
+  const get = id => {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : "";
+  };
+
+  const payload = {
+    publication: get("publication") || "MotorIndia",
+    name: get("name"),
+    designation: get("designation"),
+    company: get("company"),
+    event: get("event"),
+    theme: get("theme"),
+    companyUrl: get("companyUrl"),
+    profileUrl: get("profileUrl"),
+    eventUrl: get("eventUrl"),
+    angle: get("angle"),
+    customFocus: get("customFocus"),
+    regenerate: regenerate ? "true" : "false",
+    seed: regenerate ? String(Date.now()) : ""
+  };
+
+  if(!payload.name || !payload.designation || !payload.company || !payload.event){
+    alert("Please fill in Name, Designation, Company and Event.");
+    return;
+  }
+
+  setLoadingState(true, regenerate);
+
+  try{
+    showResearchSteps();
+
+    const data = await requestJsonp(payload);
+
+    if(!data || !data.success){
+      throw new Error((data && data.error) || "The generator returned an error.");
+    }
+
+    renderResult(data.result);
+    showResearchComplete();
+    document.getElementById("results")?.scrollIntoView({behavior:"smooth", block:"start"});
+  }catch(error){
+    showResearchError(error.message || "Something went wrong.");
+    alert(error.message || "Something went wrong. Please try again.");
+  }finally{
+    setLoadingState(false, regenerate);
+  }
+}
 const name=document.getElementById("name").value.trim(),designation=document.getElementById("designation").value.trim(),company=document.getElementById("company").value.trim(),event=document.getElementById("event").value.trim();
 if(!name||!designation||!company||!event){alert("Please enter the Person Name, Designation, Company and Event.");return}
 if(!API_ENDPOINT||API_ENDPOINT.includes("PASTE_YOUR")){alert("Please add your Google Apps Script Web App URL in the API_ENDPOINT line.");return}
@@ -136,6 +224,77 @@ try{await navigator.clipboard.writeText(text);alert("Questions copied.")}catch(e
 }
 function escapeHtml(value){if(value===null||value===undefined)return "";return String(value).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
 function escapeAttribute(value){return escapeHtml(value)}
+
+function setLoadingState(loading, regenerate){
+  const button = document.getElementById("generateBtn") || document.querySelector('button[type="submit"]');
+  if(button){
+    button.disabled = loading;
+    button.innerHTML = loading
+      ? '<span class="spinner"></span> ' + (regenerate ? 'Generating a fresh set…' : 'Researching & generating…')
+      : (regenerate ? '↻ Regenerate Questions' : 'Generate Questions');
+  }
+  const panel=document.getElementById("researchStatus");
+  if(panel) panel.hidden=!loading;
+}
+
+function showResearchSteps(){
+  const panel=document.getElementById("researchStatus");
+  if(!panel) return;
+  panel.hidden=false;
+  const steps=[
+    ["step1","⌕","Checking supplied sources"],
+    ["step2","▣","Reviewing company information"],
+    ["step3","◉","Reviewing executive information"],
+    ["step4","◆","Building interview angles"],
+    ["step5","✓","Preparing your questions"]
+  ];
+  panel.innerHTML='<div class="research-title"><span class="pulse-dot"></span> Research & question workflow</div>'+
+    '<div class="research-steps">'+steps.map((s,i)=>`<div class="research-step" id="${s[0]}"><span class="research-icon">${s[1]}</span><span>${s[2]}</span></div>`).join("")+'</div>';
+
+  steps.forEach((s,i)=>{
+    setTimeout(()=>{
+      const el=document.getElementById(s[0]);
+      if(el) el.classList.add("active");
+    }, i*550);
+  });
+}
+
+function showResearchComplete(){
+  const panel=document.getElementById("researchStatus");
+  if(!panel) return;
+  panel.innerHTML='<div class="research-title complete"><span>✓</span> Questions ready</div>';
+  setTimeout(()=>{ panel.hidden=true; },1800);
+}
+
+function showResearchError(message){
+  const panel=document.getElementById("researchStatus");
+  if(!panel) return;
+  panel.hidden=false;
+  panel.innerHTML='<div class="research-title error"><span>!</span> '+escapeHtml(message)+'</div>';
+}
+
+function escapeHtml(value){
+  return String(value).replace(/[&<>"']/g, c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
+}
+
+function regenerateQuestions(){
+  generateQuestions(true);
+}
+
+
+document.addEventListener("DOMContentLoaded",()=>{
+  const form=document.querySelector("form");
+  if(form){
+    form.addEventListener("submit",e=>{
+      e.preventDefault();
+      generateQuestions(false);
+    });
+  }
+});
+
 </script>
+<div id="researchStatus" class="research-status" hidden></div>
 </body>
 </html>
